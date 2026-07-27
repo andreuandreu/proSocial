@@ -17,27 +17,11 @@ class Agent:
         self.id = agent_id
         self.behavior = behavior
         self.resources = resources
-        self.memory: Dict[int, Dict[str, float]] = {}
         self.proSocial = 0.0
         self.decay = decay # in per one [0, 1], how much is remembered per tick, the bigger, the more is remembered.
         self.death_timer = death_timer
         self.age = age
-
-    def decay_memory(self) -> None:
-        for actor_id in list(self.memory):
-            entry = self.memory[actor_id]
-            for key in list(entry):
-                entry[key] *= self.decay
-            if all(value < 1e-6 for value in entry.values()):
-                del self.memory[actor_id]
-
-    def remember(self, actor_id: int, action: str, amount: float) -> None:
-        if actor_id not in self.memory:
-            self.memory[actor_id] = {"share": 0.0, "hoard": 0.0, "defect": 0.0}
-        self.memory[actor_id][action] += max(1+amount, 0.0)# added one to remember the behaviour independently on the absolute value
     
-        ##print(f"Agent {self.id} remembers Agent {actor_id} action '{action}' with amount {amount:.3f}. Total memory: {self.memory[actor_id][action]:.3f}")
-
     def alive(self) -> bool:
         if self.age > random.normalvariate(4, 0.5):  # Example age threshold for death
             prob_death = 1.0 - math.exp(-self.age / 100.0)  # Example age-based death probability
@@ -47,8 +31,8 @@ class Agent:
     
     def maybe_switch_behavior(self, prob_beh: float, rng: random.Random) -> None:
         if rng.random() < prob_beh:
-            choices = ["share", "hoard", "defect"]
-            weights = [1.0, 1.0, 1.0]
+            choices = ["share", "hoard"]
+            weights = [1.0, 1.0]
             current_idx = choices.index(self.behavior)
             weights[current_idx] += 2.0
             self.behavior = weighted_choice(choices, weights, rng)
@@ -59,10 +43,7 @@ class Agent:
             "behavior": self.behavior,
             "resources": round(self.resources, 3),
             "death_timer": round(self.death_timer, 3),
-            "memory": {
-                str(actor_id): {action: round(value, 3) for action, value in values.items()}
-                for actor_id, values in self.memory.items()
-            },
+            "proSocial": round(self.proSocial, 3)
         }
 
 
@@ -101,12 +82,11 @@ def init_agents(config: Dict[str, object], rng: random.Random) -> List[Agent]:
     base_death_timer = float(config["BaseDeathTimer"])
     weight_ini_share = float(config["weightIniShare"])
     weight_ini_hoard = float(config["weightIniHoard"])
-    weight_ini_defect = float(config["weightIniDefect"])
 
     agents: List[Agent] = []
     for index in range(n):
         behavior = weighted_choice(
-            ["share", "hoard", "defect"], [weight_ini_share, weight_ini_hoard, weight_ini_defect], rng
+            ["share", "hoard"], [weight_ini_share, weight_ini_hoard], rng
         )
         agents.append(
             Agent(
@@ -165,11 +145,11 @@ def produce_environment_resources(environment: str, needed: float, N: int, rng: 
     return needed * N + 2
 
 
-def choose_target(agent: Agent, others: List[Agent], rng: random.Random) -> Optional[Agent]:
+def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optional[Agent]:
     '''
-    Chooses a target agent for sharing based on the agent's memory of others' behaviors.'
+    Chooses a target agent for sharing based on the agent's memory proSOciality.'
     if there are no eligible targets, returns None.
-    implements a weighted choice based on the agent's memory of others' sharing and hoarding behaviors.
+    implements a weighted choice based on the agent's averaged proSOciality of others' sharing and hoarding behaviors.
     input: agent - the agent making the choice
            others - the list of other agents to choose from
            rng - a random number generator for reproducibility
@@ -179,7 +159,6 @@ def choose_target(agent: Agent, others: List[Agent], rng: random.Random) -> Opti
     #    return agent # Agent is too young or too old, so is always chosen     
     
     eligible = [other for other in others if other.id != agent.id ]
-    eligible = [other for other in eligible if other.behavior != "defect" ]
 
     if not eligible:
         return None
@@ -188,8 +167,8 @@ def choose_target(agent: Agent, others: List[Agent], rng: random.Random) -> Opti
     hoarders: List[float] = [] 
     for other in eligible:
     
-        if other.proSocial > random.uniform(0.0, 1.0):
-            print(f"Who {agent.id}, remembers {other.id}: proSocial={other.proSocial:.3f} and shares.")
+        if other.proSocial > random.uniform(0.0, share_th):
+            #print(f"Who {agent.id}, remembers {other.id}: proSocial={other.proSocial:.3f} and shares.")
             sharers.append(other.id)
         
         if other.proSocial < 0.0:
@@ -198,14 +177,12 @@ def choose_target(agent: Agent, others: List[Agent], rng: random.Random) -> Opti
     if len(sharers) > 0:
         chosen_id = random.choice(sharers)
     else:
-        chosen_id = random.choice(list(set(eligible) - set(hoarders))) 
-    for other in eligible:
-        if other.id == chosen_id:
-            print(f"ID {agent.id} is {agent.behavior} chose {other.id} with memory share={agent.memory.get(other.id, {}).get('share', 0.0):.3f}")
-            return other
-    return None
+        chosen_id = random.choice(list(set(eligible) - set(hoarders)))
 
-
+    other.id == chosen_id
+    return other
+    #print(f"ID {agent.id} is {agent.behavior} chose {other.id} with proSocial={agent.proSocial:.3f}")
+    
 def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: float, rng: random.Random) -> bool:
 
     if agent.age < rng.normalvariate(16, 3) or agent.age > rng.normalvariate(45, 3):
@@ -230,6 +207,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
     share_fraction = float(config.get("ShareFraction", 0.35))
     base_death_timer = float(config.get("BaseDeathTimer", 3.0))
     max_storage = float(config["MaxStorage"])
+    share_th = float(config.get("ShareThreshold", 0.5))
     N = int(config["N"])
 
     history: List[Dict[str, object]] = []
@@ -244,7 +222,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
         #    agent.resources += allocation - needed
         
         for agent in agents:
-            agent.decay_memory()
+            agent.proSocial *= agent.decay
             agent.maybe_switch_behavior(prob_beh, rng)
             agent.age += 1
 
@@ -257,19 +235,19 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 continue  # Skip agents with negative resources
 
             if agent.resources >= needed and agent.behavior == "share":
-                target = choose_target(agent, agents, rng)
+                target = choose_target(agent, agents, share_th)
                 if target is not None:
                     share_amount = min(agent.resources - needed, share_fraction * max(1.0, agent.resources / max(needed, 1e-6)))
                     if share_amount > 0.0 and agent.resources >= share_amount:
                         agent.resources -= share_amount
                         target.resources += share_amount
-                        agent.proSocial = (agent.proSocial + share_amount/(agent.resources - needed))
+                        agent.proSocial += share_amount/needed
+                        if tick % 22 == 0:  print('tick. num', tick, 'prosociual', agent.proSocial)
 
             if agent.behavior == "hoard":
-                # Hoarders recieve and keep their resources and do not share
-                agent.proSocial = (agent.proSocial - (agent.resources - needed))
+                # Hoarders recieve and keep their resources and do not share, ptroSociality captures that
+                agent.proSocial = (agent.proSocial - (agent.resources - needed)/needed)
         
-            # Defectors keep their resources but do not recieve nor share
 
             if  agent.resources > needed and should_reproduce(agent, needed, max_childs, re_rate, rng):
                 
@@ -282,7 +260,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                     total_reproductions += reproduction_events
                     child_behavior = agent.behavior
                     #if rng.random() < prob_beh:
-                    #    child_behavior = weighted_choice(["share", "hoard", "defect"], [1.0, 1.0, 1.0], rng)
+                    #    child_behavior = weighted_choice(["share", "hoard"], [1.0, 1.0, 1.0], rng)
                     child = Agent(
                         agent_id=buffer + len(agents) + len(next_generation),
                         behavior=child_behavior,
@@ -315,7 +293,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 "environment": environment,
                 "resources_produced": round(env_resources, 3),
                 "population": len(agents),
-                "behavior_counts": {behavior: sum(1 for agent in agents if agent.behavior == behavior) for behavior in ["share", "hoard", "defect"]},
+                "behavior_counts": {behavior: sum(1 for agent in agents if agent.behavior == behavior) for behavior in ["share", "hoard"]},
                 "agents": [agent.to_dict() for agent in agents],
             }
         )

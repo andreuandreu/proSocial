@@ -39,7 +39,6 @@ def plot_results(results: dict) -> None:
 
     share_counts = [counts.get("share", 0) for counts in behavior_counts]
     hoard_counts = [counts.get("hoard", 0) for counts in behavior_counts]
-    defect_counts = [counts.get("defect", 0) for counts in behavior_counts]
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -48,10 +47,9 @@ def plot_results(results: dict) -> None:
     ax1 = axes[0]
     share_counts = movingaverage(share_counts, window_size)
     hoard_counts = movingaverage(hoard_counts, window_size)
-    defect_counts = movingaverage(defect_counts, window_size)
     ax1.plot(ticks, share_counts, label="share", ls = "--",  linewidth=1.5)
     ax1.plot(ticks, hoard_counts, label="hoard", ls = "-.",  linewidth=1.5)
-    ax1.plot(ticks, defect_counts, label="defect", ls = "-",  linewidth=1.5)
+  
     ax1.set_ylabel("Agent count")
     ax1.set_title("Behavior distribution over time")
     ax1.legend()

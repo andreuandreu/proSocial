@@ -1,13 +1,14 @@
 
 {
   "N": 55,
-  "ticks": 22,
+  "ticks": 555,
   "seed": 7,
   "Needed": 2.0,
-  "Decay": 1.1,
+  "Decay": 0.9,
   "MaxChilds": 1.5,
   "ReRate": 10.5,
   "probBeh": 0.005,
+  "ShareThreshold": 0.333,
   "MaxStorage": 4.0,
   "ShareFraction": 0.35,
   "BaseDeathTimer": 3,
