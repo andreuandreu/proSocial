@@ -1,0 +1,20 @@
+
+{
+  "N": 55,
+  "ticks": 22,
+  "seed": 7,
+  "Needed": 2.0,
+  "Decay": 1.1,
+  "MaxChilds": 1.5,
+  "ReRate": 10.5,
+  "probBeh": 0.005,
+  "MaxStorage": 4.0,
+  "ShareFraction": 0.35,
+  "BaseDeathTimer": 3,
+  "weightIniShare" : 1.0,
+  "weightIniHoard": 1.0,
+  "weightIniDefect": 1.0,
+  "Chang": 0.000002,
+  "ReNeutral": 0.05,
+  "OutputDir": "data"
+}
