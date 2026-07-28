@@ -11,16 +11,16 @@ BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
 S = 511
 TICKS_TO_REPORT = 22
-BEHAVIORS = ("share", "hoard", "defect")
+BEHAVIORS = ("share", "hoard")
 
 
-def make_param_label(chang: float, prob_beh: float, decay: float) -> str:
+def make_param_label(chang: float, prob_beh: float, decay: float, tag: str) -> str:
     """Return a stable file label for a parameter combination.
 
     The label mirrors the formatting used in the JSON artifact names so that
     parameter sweeps remain easy to inspect by hand.
     """
-    return f"Chang_{chang:.6f}_probBeh_{prob_beh:.6f}_Decay_{decay:.6f}"
+    return f"Chang_{chang:.5f}_probBeh_{prob_beh:.3f}_Decay_{decay:.3f}"+ tag
 
 
 def summarize_report_window(history: List[Dict[str, object]], window_size: int) -> Dict[str, object]:
@@ -36,7 +36,6 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
             "status": "extinct",
             "share": 0.0,
             "hoard": 0.0,
-            "defect": 0.0,
             "extinct": 1.0,
         }
 
@@ -47,7 +46,6 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
             "status": "extinct",
             "share": 0.0,
             "hoard": 0.0,
-            "defect": 0.0,
             "extinct": 1.0,
         }
 
@@ -58,7 +56,6 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
             "status": "extinct",
             "share": 0.0,
             "hoard": 0.0,
-            "defect": 0.0,
             "extinct": 1.0,
         }
 
@@ -70,7 +67,6 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
                 "status": "extinct",
                 "share": 0.0,
                 "hoard": 0.0,
-                "defect": 0.0,
                 "extinct": 1.0,
             }
 
@@ -79,7 +75,7 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
             behavior_counts = {}
 
         for behavior in BEHAVIORS:
-            count = float(behavior_counts.get(behavior, 10.0))
+            count = float(behavior_counts.get(behavior, 99.0))
             behavior_summaries[behavior] += count
 
     window_length = len(window)
@@ -87,7 +83,6 @@ def summarize_report_window(history: List[Dict[str, object]], window_size: int) 
         "status": "alive",
         "share": round(behavior_summaries["share"] / window_length, 6),
         "hoard": round(behavior_summaries["hoard"] / window_length, 6),
-        "defect": round(behavior_summaries["defect"] / window_length, 6),
         "extinct": 0.0,
     }
 
@@ -104,13 +99,14 @@ def run_batch(config_template: Dict[str, object]) -> None:
     chang = float(config_template.get("Chang", 0.0))
     prob_beh = float(config_template.get("probBeh", 0.0))
     decay = float(config_template.get("Decay", 0.0))
+    tag = str(config_template.get("Tag", ""))
 
     summaries: List[Dict[str, object]] = []
     for run_id in range(S):
         config = dict(config_template)
         config["seed"] = int(config_template.get("seed", 7) + run_id)
 
-        result = simulate(config, verbose=False)
+        result = simulate(config, verbose=False, store_history=False, summary_window_size=TICKS_TO_REPORT)
         history = result.get("history", [])
         summary = summarize_report_window(history, TICKS_TO_REPORT)
         if run_id %10 == 1: print(f"run {run_id}, summary: {summary}.")
@@ -120,11 +116,10 @@ def run_batch(config_template: Dict[str, object]) -> None:
     counts = {
         "share": round(sum(item["share"] for item in summaries), 3),
         "hoard": round(sum(item["hoard"] for item in summaries), 3),
-        "defect": round(sum(item["defect"] for item in summaries), 3),
         "extinct": round(sum(item["extinct"] for item in summaries), 3),
     }
 
-    output_path = DATA_DIR / f"{make_param_label(chang, prob_beh, decay)}.json"
+    output_path = DATA_DIR / f"{make_param_label(chang, prob_beh, decay, tag)}.json"
     payload = {
         "S": S,
         "N": int(config_template.get("N", 1)),

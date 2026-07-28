@@ -5,7 +5,6 @@ import math
 import random
 from pathlib import Path
 from typing import Dict, List, Optional
-import numpy as np
 
 
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
@@ -22,19 +21,21 @@ class Agent:
         self.death_timer = death_timer
         self.age = age
     
-    def alive(self) -> bool:
-        if self.age > random.normalvariate(4, 0.5):  # Example age threshold for death
+    def alive(self, rng: random.Random) -> bool:
+        if self.age > rng.normalvariate(4, 0.5):  # Example age threshold for death
             prob_death = 1.0 - math.exp(-self.age / 100.0)  # Example age-based death probability
         else:
             prob_death = 0.1
-        return self.resources >= 0 and self.death_timer > 0 and random.random() > prob_death
+        return self.resources >= 0 and self.death_timer > 0 and rng.random() > prob_death
     
     def maybe_switch_behavior(self, prob_beh: float, rng: random.Random) -> None:
         if rng.random() < prob_beh:
             choices = ["share", "hoard"]
             weights = [1.0, 1.0]
-            current_idx = choices.index(self.behavior)
-            weights[current_idx] += 2.0
+            if self.behavior == "share":
+                weights[0] += 2.0
+            else:
+                weights[1] += 2.0
             self.behavior = weighted_choice(choices, weights, rng)
 
     def to_dict(self) -> Dict[str, object]:
@@ -95,7 +96,7 @@ def init_agents(config: Dict[str, object], rng: random.Random) -> List[Agent]:
                 resources=needed,
                 decay=decay,
                 death_timer=rng.uniform(1, base_death_timer),
-                age=rng.lognormvariate(np.log(20), np.log(40.5)),  # Log-normal distribution for age
+                age=rng.lognormvariate(math.log(20), math.log(40.5)),  # Log-normal distribution for age
             )
         )
     return agents
@@ -145,7 +146,7 @@ def produce_environment_resources(environment: str, needed: float, N: int, rng: 
     return needed * N + 2
 
 
-def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optional[Agent]:
+def choose_target(agent: Agent, others: List[Agent], share_th: float, rng: random.Random) -> Optional[Agent]:
     '''
     Chooses a target agent for sharing based on the agent's memory proSOciality.'
     if there are no eligible targets, returns None.
@@ -158,29 +159,29 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
     #if agent.age < rng.normalvariate(16, 3):# or agent.age > rng.normalvariate(65, 3):
     #    return agent # Agent is too young or too old, so is always chosen     
     
-    eligible = [other for other in others if other.id != agent.id ]
+    eligible = [other for other in others if other.id != agent.id]
 
     if not eligible:
         return None
 
-    sharers: List[float] = [] 
-    hoarders: List[float] = [] 
+    sharers: List[Agent] = []
+    hoarders: List[int] = []
     for other in eligible:
-    
-        if other.proSocial > random.uniform(0.0, share_th):
-            #print(f"Who {agent.id}, remembers {other.id}: proSocial={other.proSocial:.3f} and shares.")
-            sharers.append(other.id)
-        
+        if other.proSocial > rng.uniform(0.0, share_th):
+            sharers.append(other)
+
         if other.proSocial < 0.0:
             hoarders.append(other.id)
-        
-    if len(sharers) > 0:
-        chosen_id = random.choice(sharers)
-    else:
-        chosen_id = random.choice(list(set(eligible) - set(hoarders)))
 
-    other.id == chosen_id
-    return other
+    if sharers:
+        return rng.choice(sharers)
+
+    if not hoarders:
+        return rng.choice(eligible)
+
+    hoarder_ids = set(hoarders)
+    candidates = [other for other in eligible if other.id not in hoarder_ids]
+    return rng.choice(candidates) if candidates else None
     #print(f"ID {agent.id} is {agent.behavior} chose {other.id} with proSocial={agent.proSocial:.3f}")
     
 def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: float, rng: random.Random) -> bool:
@@ -188,12 +189,17 @@ def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: flo
     if agent.age < rng.normalvariate(16, 3) or agent.age > rng.normalvariate(45, 3):
         return False
     else:   
-        sigma = max(0.1, min(1.5, np.log(agent.resources / max(needed, 1e-6))))
+        sigma = max(0.1, min(1.5, math.log(agent.resources / max(needed, 1e-6))))
         sample = rng.lognormvariate(mu=re_rate, sigma=sigma)
         return sample > 1.5
 
 
-def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, object]:
+def simulate(
+    config: Dict[str, object],
+    verbose: bool = False,
+    store_history: bool = True,
+    summary_window_size: Optional[int] = None,
+) -> Dict[str, object]:
     rng = random.Random(int(config["seed"]))
     agents = init_agents(config, rng)
     ticks = int(config["ticks"])
@@ -211,6 +217,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
     N = int(config["N"])
 
     history: List[Dict[str, object]] = []
+    recent_history: List[Dict[str, object]] = []
     environment = "neutral"
 
     for tick in range(ticks):
@@ -235,14 +242,14 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 continue  # Skip agents with negative resources
 
             if agent.resources >= needed and agent.behavior == "share":
-                target = choose_target(agent, agents, share_th)
+                target = choose_target(agent, agents, share_th, rng)
                 if target is not None:
                     share_amount = min(agent.resources - needed, share_fraction * max(1.0, agent.resources / max(needed, 1e-6)))
                     if share_amount > 0.0 and agent.resources >= share_amount:
                         agent.resources -= share_amount
                         target.resources += share_amount
                         agent.proSocial += share_amount/needed
-                        if tick % 22 == 0:  print('tick. num', tick, 'prosociual', agent.proSocial)
+                        #if tick % 22 == 0:  print('tick. num', tick, 'prosociual', agent.proSocial)
 
             if agent.behavior == "hoard":
                 # Hoarders recieve and keep their resources and do not share, ptroSociality captures that
@@ -271,7 +278,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                     )
                     next_generation.append(child)
 
-            still_alive = agent.alive()
+            still_alive = agent.alive(rng)
             if agent.resources >= needed and still_alive:
                 agent.death_timer = rng.uniform(agent.death_timer, base_death_timer)
                 agent.resources = 1#needed#min(needed, agent.resources)
@@ -284,25 +291,29 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                     
                 else:
                     total_deaths += 1
-         
-            
+        proSociality = sum(agent.proSocial for agent in agents)
+        snapshot = {
+            "tick": tick,
+            "environment": environment,
+            "resources_produced": round(env_resources, 3),
+            "population": len(agents),
+            "behavior_counts": {behavior: sum(1 for agent in agents if agent.behavior == behavior) for behavior in ["share", "hoard"]},
+            "proSociality": proSociality,
+        }
+        if store_history:
+            snapshot["agents"] = [agent.to_dict() for agent in agents]
+            history.append(snapshot)
+        if summary_window_size is not None:
+            recent_history.append(snapshot)
+            if len(recent_history) > summary_window_size:
+                recent_history.pop(0)
         agents = next_generation
-        history.append(
-            {
-                "tick": tick,
-                "environment": environment,
-                "resources_produced": round(env_resources, 3),
-                "population": len(agents),
-                "behavior_counts": {behavior: sum(1 for agent in agents if agent.behavior == behavior) for behavior in ["share", "hoard"]},
-                "agents": [agent.to_dict() for agent in agents],
-            }
-        )
         #if verbose and tick % 10 == 0:
         #    print(f"Tick {tick}: Environment={environment}, Resources={env_resources:.2f}, Population={len(agents)}")
         #    print(f"total reproductions: {total_reproductions}, total deaths: {total_deaths}")
         
 
-    return {"config": config, "history": history}
+    return {"config": config, "history": recent_history if summary_window_size is not None else history}
 
 
 def write_output(data: Dict[str, object], output_dir: Path) -> None:

@@ -33,6 +33,7 @@ def plot_results(results: dict) -> None:
     environments = [entry["environment"] for entry in history]
     resources = [entry["resources_produced"] for entry in history]
     behavior_counts = [entry.get("behavior_counts", {}) for entry in history]
+    av_proSociality = [entry.get("proSociality", {}) for entry in history]
 
     env_to_num = {"scarce": 0, "neutral": 1, "abundant": 2}
     env_series = [env_to_num[env] for env in environments]
@@ -47,13 +48,15 @@ def plot_results(results: dict) -> None:
     ax1 = axes[0]
     share_counts = movingaverage(share_counts, window_size)
     hoard_counts = movingaverage(hoard_counts, window_size)
-    ax1.plot(ticks, share_counts, label="share", ls = "--",  linewidth=1.5)
+    ax1.plot(ticks, share_counts, label="share", ls = "-",  linewidth=1.5)
     ax1.plot(ticks, hoard_counts, label="hoard", ls = "-.",  linewidth=1.5)
-  
+   
     ax1.set_ylabel("Agent count")
     ax1.set_title("Behavior distribution over time")
     ax1.legend()
     ax1.grid(alpha=0.3)
+
+
 
     ax2 = axes[1]
     ax2.plot(ticks, resources, color="tab:green", linewidth=1.8, label="resources produced")
@@ -63,11 +66,16 @@ def plot_results(results: dict) -> None:
     ax2.grid(alpha=0.3)
 
     ax2_twin = ax2.twinx()
-    ax2_twin.plot(ticks, env_series, color="tab:red", linewidth=1.2, label="environment")
-    ax2_twin.set_ylabel("Environment code\n abundant=2, neutral=1, scarce=0")
-    ax2_twin.set_ylim(-0.2, 2.2)
-    ax2_twin.set_yticks([0, 1, 2])
-    ax2_twin.set_yticklabels(["scarce", "neutral", "abundant"])
+    ax2_twin.plot(ticks, av_proSociality/(resources*(share_counts + hoard_counts)), label = "ProSoc", ls = ":")
+    ax2_twin.hlines(0, ticks[0], ticks[-1], color = 'k')
+    ax2_twin.set_ylabel("Group ProSociality\n ")
+
+    #ax2_twin = ax2.twinx()
+    #ax2_twin.plot(ticks, env_series, color="tab:red", linewidth=1.2, label="environment")
+    #ax2_twin.set_ylabel("Environment code\n abundant=2, neutral=1, scarce=0")
+    #ax2_twin.set_ylim(-0.2, 2.2)
+    #ax2_twin.set_yticks([0, 1, 2])
+    #ax2_twin.set_yticklabels(["scarce", "neutral", "abundant"])
 
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "simulation_summary.png", dpi=200)

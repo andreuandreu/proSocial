@@ -30,34 +30,45 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
     n = int(result.get("N", result.get("config", {}).get("N", 1)))
     runs = result.get("runs", [])
 
-    share_total = 0.0
-    hoard_total = 0.0
-    defect_total = 0.0
+    share_runs = 0
+    hoard_runs = 0
+    mix_runs = 0
     extinct_runs = 0
-    total_population = 0.0
+    total_share = 0.0
+    total_hoard = 0.0
 
     for run in runs:
         share = float(run.get("share", 0.0))
         hoard = float(run.get("hoard", 0.0))
-        defect = float(run.get("defect", 0.0))
-        population = share + hoard + defect
-        total_population += population
-
-        share_total += share
-        hoard_total += hoard
-        defect_total += defect
+        
+        population = share + hoard
+        
+        total_share += share
+        total_hoard += hoard
 
         if run.get("status") == "extinct" or population <= 0.0:
             extinct_runs += 1
+            mix_runs += 1
+            continue
 
-    values = [share_total, hoard_total, defect_total]
-    labels = ["share", "hoard", "defect"]
+        share_fraction = share / population if population > 0.0 else 0.0
+        hoard_fraction = hoard / population if population > 0.0 else 0.0
+
+        if share_fraction > 0.90:
+            share_runs += 1
+        elif hoard_fraction > 0.90:
+            hoard_runs += 1
+        else:
+            mix_runs += 1
+
+    values = [share_runs, hoard_runs, mix_runs]
+    labels = ["share", "hoard", "mix"]
 
     if sum(values) <= 0:
         values = [1.0, 1.0, 1.0]
 
     default_total_population = max(1, n * s)
-    pie_radius = math.sqrt(max(total_population, 1.0) / default_total_population)
+    pie_radius = math.sqrt(max(total_share + total_hoard, 1.0) / default_total_population)
     extinct_fraction = extinct_runs / max(len(runs), 1)
 
     if extinct_fraction <= 0.0:
@@ -78,7 +89,7 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
 
     ax.set_aspect("equal")
     ax.set_title(
-        f"Behavior composition across {len(runs)} runs\nTotal population={total_population:.1f}, extinct={extinct_runs}/{len(runs)}",
+        f"Total sharers {total_share:.0f}, total hoarders {total_hoard:.0f}, extinct={extinct_runs}/{len(runs)}",
         fontsize=12,
     )
 
@@ -91,6 +102,7 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=200, bbox_inches="tight")
+    plt.show()
     plt.close(fig)
 
     print(f"Saved plot to {output_path}")
