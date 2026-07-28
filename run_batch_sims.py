@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 from typing import Dict, List
 
-from simulation import simulate
+from simulation_slow import simulate
 
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -106,7 +106,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
         config = dict(config_template)
         config["seed"] = int(config_template.get("seed", 7) + run_id)
 
-        result = simulate(config, verbose=False, store_history=False, summary_window_size=TICKS_TO_REPORT)
+        result = simulate(config, verbose=False)
         history = result.get("history", [])
         summary = summarize_report_window(history, TICKS_TO_REPORT)
         if run_id %10 == 1: print(f"run {run_id}, summary: {summary}.")
@@ -135,7 +135,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
 
 
 if __name__ == "__main__":
-    from simulation import load_config
+    from simulation_slow import load_config
 
     config = load_config(BASE_DIR / "config.json")
     run_batch(config)

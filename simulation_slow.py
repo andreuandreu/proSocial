@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import random
+from random import Random as rand
 from pathlib import Path
 from typing import Dict, List, Optional
 import numpy as np
@@ -29,13 +30,13 @@ class Agent:
             prob_death = 0.1
         return self.resources >= 0 and self.death_timer > 0 and random.random() > prob_death
     
-    def maybe_switch_behavior(self, prob_beh: float, rng: random.Random) -> None:
-        if rng.random() < prob_beh:
+    def maybe_switch_behavior(self, prob_beh: float) -> None:
+        if random.random() < prob_beh:
             choices = ["share", "hoard"]
             weights = [1.0, 1.0]
             current_idx = choices.index(self.behavior)
             weights[current_idx] += 2.0
-            self.behavior = weighted_choice(choices, weights, rng)
+            self.behavior = weighted_choice(choices, weights)
 
     def to_dict(self) -> Dict[str, object]:
         return {
@@ -47,7 +48,7 @@ class Agent:
         }
 
 
-def weighted_choice(options: List[str], weights: List[float], rng: random.Random) -> str:
+def weighted_choice(options: List[str], weights: List[float]) -> str:
     '''
     returns a random choice from options based on the provided weights.
 
@@ -61,7 +62,7 @@ def weighted_choice(options: List[str], weights: List[float], rng: random.Random
     total = sum(weights)
     if total <= 0:
         return options[0]
-    threshold = rng.random() * total
+    threshold = random.random() * total
     running = 0.0
     for option, weight in zip(options, weights):
         running += weight
@@ -75,7 +76,7 @@ def load_config(path: Path) -> Dict[str, object]:
         return json.load(handle)
 
 
-def init_agents(config: Dict[str, object], rng: random.Random) -> List[Agent]:
+def init_agents(config: Dict[str, object]) -> List[Agent]:
     n = int(config["N"])
     needed = float(config["Needed"])
     decay = float(config["Decay"])
@@ -86,7 +87,7 @@ def init_agents(config: Dict[str, object], rng: random.Random) -> List[Agent]:
     agents: List[Agent] = []
     for index in range(n):
         behavior = weighted_choice(
-            ["share", "hoard"], [weight_ini_share, weight_ini_hoard], rng
+            ["share", "hoard"], [weight_ini_share, weight_ini_hoard]
         )
         agents.append(
             Agent(
@@ -94,14 +95,14 @@ def init_agents(config: Dict[str, object], rng: random.Random) -> List[Agent]:
                 behavior=behavior,
                 resources=needed,
                 decay=decay,
-                death_timer=rng.uniform(1, base_death_timer),
-                age=rng.lognormvariate(np.log(20), np.log(40.5)),  # Log-normal distribution for age
+                death_timer=random.uniform(1, base_death_timer),
+                age=random.lognormvariate(np.log(20), np.log(40.5)),  # Log-normal distribution for age
             )
         )
     return agents
 
 
-def distribute_resources(total_resources: float, agents: List[Agent], needed: float, max_storage: float, rng: random.Random) -> List[Agent]:
+def distribute_resources(total_resources: float, agents: List[Agent], needed: float, max_storage: float) -> List[Agent]:
     n_agents = len(agents)
     if n_agents <= 0:
         return []
@@ -112,36 +113,36 @@ def distribute_resources(total_resources: float, agents: List[Agent], needed: fl
     for agent in agents:
         if agent.resources > max_storage:
             agent.resources = max_storage  # Cap resources to avoid excessive accumulation
-        if agent.age < rng.normalvariate(7, 0.5): # or agent.age > rng.normalvariate(85, 3):
+        if agent.age < random.normalvariate(7, 0.5): 
             agent.resources = 2
             used += needed  # Agent is too young or too old, gets only the needed resources
-            #print(f"Agent {agent.id} (age: {agent.age:.2f}), ", rng.normalvariate(7, 0.5))
+            #print(f"Agent {agent.id} (age: {agent.age:.2f}), "
     remaining_resources = max(0.0, total_resources - used)
     
-    weights = [rng.random() for _ in range(n_agents-int(used/needed))]
-    #weights = [abs(rng.normalvariate(1,0.2)) for _ in range(n_agents-int(used/needed))]
+    weights = [random.random() for _ in range(n_agents-int(used/needed))]
+    
     total_weight = sum(weights)
     for agent in agents:
-        if agent.age > rng.normalvariate(7, 0.5): #and agent.age < rng.normalvariate(85, 3):
+        if agent.age > random.normalvariate(7, 0.5): 
             receive = (remaining_resources * weights.pop() / total_weight if weights else 0.0)
             agent.resources += receive - needed
     return agents
 
-def advance_environment(current_environment: str, chang: float, reNeutral: float, rng: random.Random) -> str:
+def advance_environment(current_environment: str, chang: float, reNeutral: float) -> str:
     if current_environment == "neutral":
-        if rng.random() < chang:
-            return rng.choice(["abundant", "scarce"])
+        if random.random() < chang:
+            return random.choice(["abundant", "scarce"])
         return "neutral"
-    if rng.random() < reNeutral:
+    if random.random() < reNeutral:
         return "neutral"
     return current_environment
 
 
-def produce_environment_resources(environment: str, needed: float, N: int, rng: random.Random) -> float:
+def produce_environment_resources(environment: str, needed: float, N: int) -> float:
     if environment == "abundant":
-        return rng.uniform(2.0 * needed * N, 10.0 * needed * N)
+        return random.uniform(2.0 * needed * N, 10.0 * needed * N)
     if environment == "scarce":
-        return rng.uniform(0.1 * needed * N, 0.5 * needed * N)
+        return random.uniform(0.1 * needed * N, 0.5 * needed * N)
     return needed * N + 2
 
 
@@ -152,11 +153,8 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
     implements a weighted choice based on the agent's averaged proSOciality of others' sharing and hoarding behaviors.
     input: agent - the agent making the choice
            others - the list of other agents to choose from
-           rng - a random number generator for reproducibility
     output: the chosen target agent or None if no eligible targets exist
     '''
-    #if agent.age < rng.normalvariate(16, 3):# or agent.age > rng.normalvariate(65, 3):
-    #    return agent # Agent is too young or too old, so is always chosen     
     
     eligible = [other for other in others if other.id != agent.id ]
 
@@ -183,19 +181,18 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
     return other
     #print(f"ID {agent.id} is {agent.behavior} chose {other.id} with proSocial={agent.proSocial:.3f}")
     
-def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: float, rng: random.Random) -> bool:
+def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: float) -> bool:
 
-    if agent.age < rng.normalvariate(16, 3) or agent.age > rng.normalvariate(45, 3):
+    if agent.age < random.normalvariate(16, 3) or agent.age > random.normalvariate(45, 3):
         return False
     else:   
         sigma = max(0.1, min(1.5, np.log(agent.resources / max(needed, 1e-6))))
-        sample = rng.lognormvariate(mu=re_rate, sigma=sigma)
+        sample = random.lognormvariate(mu=re_rate, sigma=sigma)
         return sample > 1.5
 
 
 def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, object]:
-    rng = random.Random(int(config["seed"]))
-    agents = init_agents(config, rng)
+    agents = init_agents(config)
     ticks = int(config["ticks"])
     needed = float(config["Needed"])
     re_rate = float(config["ReRate"])
@@ -214,16 +211,16 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
     environment = "neutral"
 
     for tick in range(ticks):
-        environment = advance_environment(environment, chang, reNeutral, rng)
-        env_resources = produce_environment_resources(environment, needed, N, rng)
+        environment = advance_environment(environment, chang, reNeutral)
+        env_resources = produce_environment_resources(environment, needed, N)
 
-        agents = distribute_resources(env_resources, agents, needed, max_storage, rng)
+        agents = distribute_resources(env_resources, agents, needed, max_storage)
         #for agent, allocation in zip(agents, allocations):
         #    agent.resources += allocation - needed
         
         for agent in agents:
             agent.proSocial *= agent.decay
-            agent.maybe_switch_behavior(prob_beh, rng)
+            agent.maybe_switch_behavior(prob_beh)
             agent.age += 1
 
         next_generation: List[Agent] = []
@@ -249,31 +246,30 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 agent.proSocial = (agent.proSocial - (agent.resources - needed)/needed)
         
 
-            if  agent.resources > needed and should_reproduce(agent, needed, max_childs, re_rate, rng):
+            if  agent.resources > needed and should_reproduce(agent, needed, max_childs, re_rate):
                 
                 sigma = max(0.1, min(1.5, agent.resources / max(needed, 1e-6)))
-                reproduction_chance = int(abs(rng.normalvariate(mu=max_childs, sigma=sigma))+0.5)
+                reproduction_chance = int(abs(random.normalvariate(mu=max_childs, sigma=sigma))+0.5)
                 available_resources = agent.resources - needed*(reproduction_chance+1)
                 reproduction_events = max(int(available_resources / needed), int((agent.resources - needed)/needed) )
                
                 for _ in range(reproduction_events):
                     total_reproductions += reproduction_events
                     child_behavior = agent.behavior
-                    #if rng.random() < prob_beh:
-                    #    child_behavior = weighted_choice(["share", "hoard"], [1.0, 1.0, 1.0], rng)
+                    
                     child = Agent(
                         agent_id=buffer + len(agents) + len(next_generation),
                         behavior=child_behavior,
                         resources=0.0,
                         decay=decay,
-                        death_timer=rng.uniform(1, float(config["BaseDeathTimer"])),
+                        death_timer=random.uniform(1, float(config["BaseDeathTimer"])),
                         age=0
                     )
                     next_generation.append(child)
 
             still_alive = agent.alive()
             if agent.resources >= needed and still_alive:
-                agent.death_timer = rng.uniform(agent.death_timer, base_death_timer)
+                agent.death_timer = random.uniform(agent.death_timer, base_death_timer)
                 agent.resources = 1#needed#min(needed, agent.resources)
                 next_generation.append(agent)
             else:
