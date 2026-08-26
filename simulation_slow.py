@@ -11,15 +11,17 @@ import numpy as np
 
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 DATA_DIR = Path(__file__).resolve().parent / "data"
-buffer = 100  # Buffer for agent IDs to avoid collisions with initial agents
+buffer = 0  # Buffer for agent IDs to avoid collisions with initial agents
 
 class Agent:
-    def __init__(self, agent_id: int, behavior: str, resources: float, decay: float, death_timer: float, age: int):
+    def __init__(self, agent_id: int, behavior: str, resources: float, decay: float, repAge: float, menoAge: float, death_timer: float, age: int):
         self.id = agent_id
         self.behavior = behavior
         self.resources = resources
         self.proSocial = 0.0
         self.decay = decay # in per one [0, 1], how much is remembered per tick, the bigger, the more is remembered.
+        self.repAge = repAge
+        self.menoAge = menoAge
         self.death_timer = death_timer
         self.age = age
     
@@ -76,6 +78,17 @@ def load_config(path: Path) -> Dict[str, object]:
         return json.load(handle)
 
 
+def sample_hunter_gatherer_age() -> int:
+    '''
+    simulator sampling from six weighted age bands,
+    40% of the initial population under 15, 4% aged 65–80. 
+    '''
+    age_bands = [(0, 4), (5, 14), (15, 24), (25, 44), (45, 64), (65, 80)]
+    band_weights = [0.18, 0.22, 0.16, 0.25, 0.15, 0.04]
+    band_start, band_end = random.choices(age_bands, weights=band_weights, k=1)[0]
+    return random.randint(band_start, band_end)
+
+
 def init_agents(config: Dict[str, object]) -> List[Agent]:
     n = int(config["N"])
     needed = float(config["Needed"])
@@ -83,6 +96,10 @@ def init_agents(config: Dict[str, object]) -> List[Agent]:
     base_death_timer = float(config["BaseDeathTimer"])
     weight_ini_share = float(config["weightIniShare"])
     weight_ini_hoard = float(config["weightIniHoard"])
+    rep_age = float(config.get("ReproductiveAge", 16))
+    var_rep_age = float(config.get("varReproductiveAge", 3))
+    meno_age = float(config.get("MenopausalAge", 45))
+    var_meno_age = float(config.get("varMenopausalAge", 3))
 
     agents: List[Agent] = []
     for index in range(n):
@@ -95,8 +112,11 @@ def init_agents(config: Dict[str, object]) -> List[Agent]:
                 behavior=behavior,
                 resources=needed,
                 decay=decay,
+                repAge = random.normalvariate(rep_age, var_rep_age),
+                menoAge = random.normalvariate(meno_age, var_meno_age),
                 death_timer=random.uniform(1, base_death_timer),
-                age=random.lognormvariate(np.log(20), np.log(40.5)),  # Log-normal distribution for age
+                age=sample_hunter_gatherer_age(),
+            
             )
         )
     return agents
@@ -113,9 +133,9 @@ def distribute_resources(total_resources: float, agents: List[Agent], needed: fl
     for agent in agents:
         if agent.resources > max_storage:
             agent.resources = max_storage  # Cap resources to avoid excessive accumulation
-        if agent.age < random.normalvariate(7, 0.5): 
+        if agent.age < agent.repAge/2 : 
             agent.resources = 2
-            used += needed  # Agent is too young or too old, gets only the needed resources
+            used += needed  # Agent is too young, gets only the needed resources
             #print(f"Agent {agent.id} (age: {agent.age:.2f}), "
     remaining_resources = max(0.0, total_resources - used)
     
@@ -123,7 +143,7 @@ def distribute_resources(total_resources: float, agents: List[Agent], needed: fl
     
     total_weight = sum(weights)
     for agent in agents:
-        if agent.age > random.normalvariate(7, 0.5): 
+        if agent.age < agent.repAge/2 or agent.age > agent.menoAge*2: 
             receive = (remaining_resources * weights.pop() / total_weight if weights else 0.0)
             agent.resources += receive - needed
     return agents
@@ -155,47 +175,47 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
            others - the list of other agents to choose from
     output: the chosen target agent or None if no eligible targets exist
     '''
-    
-    eligible = [other for other in others if other.id != agent.id ]
+
+    eligible = [other for other in others if other.id != agent.id]
 
     if not eligible:
         return None
 
-    sharers: List[float] = [] 
-    hoarders: List[float] = [] 
+    sharers: List[Agent] = []
+    hoarders: List[Agent] = []
     for other in eligible:
-    
         if other.proSocial > random.uniform(0.0, share_th):
-            #print(f"Who {agent.id}, remembers {other.id}: proSocial={other.proSocial:.3f} and shares.")
-            sharers.append(other.id)
-        
+            sharers.append(other)
+
         if other.proSocial < 0.0:
-            hoarders.append(other.id)
-        
-    if len(sharers) > 0:
-        chosen_id = random.choice(sharers)
-    else:
-        chosen_id = random.choice(list(set(eligible) - set(hoarders)))
+            hoarders.append(other)
 
-    other.id == chosen_id
-    return other
-    #print(f"ID {agent.id} is {agent.behavior} chose {other.id} with proSocial={agent.proSocial:.3f}")
+    if sharers:
+        return random.choice(sharers)
+
+    possible_targets = [other for other in eligible if other not in hoarders]
+    if not possible_targets:
+        return None
+
+    return random.choice(possible_targets)
     
-def should_reproduce(agent: Agent, needed: float, MaxChilds: float, re_rate: float) -> bool:
+def should_reproduce(agent: Agent, max_storage:float, under1_DeathRate: float) -> bool:
 
-    if agent.age < random.normalvariate(16, 3) or agent.age > random.normalvariate(45, 3):
+    if agent.age < agent.repAge or agent.age > agent.menoAge:
+        print(f"Agent {agent.id}, of age {agent.age} and beh {agent.behavior} is NOT in reproduction age. ")
         return False
     else:   
-        sigma = max(0.1, min(1.5, np.log(agent.resources / max(needed, 1e-6))))
-        sample = random.lognormvariate(mu=re_rate, sigma=sigma)
-        return sample > 1.5
+        slope = agent.resources / max_storage
+        sample = slope*random.random()
+        print(f"Agent {agent.id}, age {agent.age}, beh. {agent.behavior}, res. {agent.resources:.2f},  slope {slope:.2f} is considering reproduction. Sample: {sample:.1f}")
+        return sample > under1_DeathRate
 
 
 def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, object]:
     agents = init_agents(config)
     ticks = int(config["ticks"])
     needed = float(config["Needed"])
-    re_rate = float(config["ReRate"])
+    under1_DeathRate = float(config["Under1DeathRate"])
     max_childs = float(config["MaxChilds"])
     decay = float(config["Decay"])
     prob_beh = float(config["probBeh"])
@@ -211,12 +231,12 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
     environment = "neutral"
 
     for tick in range(ticks):
+        if len(agents)>0: 
+            print("tick", tick, '\n')
         environment = advance_environment(environment, chang, reNeutral)
         env_resources = produce_environment_resources(environment, needed, N)
 
         agents = distribute_resources(env_resources, agents, needed, max_storage)
-        #for agent, allocation in zip(agents, allocations):
-        #    agent.resources += allocation - needed
         
         for agent in agents:
             agent.proSocial *= agent.decay
@@ -245,8 +265,8 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 # Hoarders recieve and keep their resources and do not share, ptroSociality captures that
                 agent.proSocial = (agent.proSocial - (agent.resources - needed)/needed)
         
-
-            if  agent.resources > needed and should_reproduce(agent, needed, max_childs, re_rate):
+            reproduction = should_reproduce(agent, max_storage,under1_DeathRate)
+            if  agent.resources > needed and reproduction:
                 
                 sigma = max(0.1, min(1.5, agent.resources / max(needed, 1e-6)))
                 reproduction_chance = int(abs(random.normalvariate(mu=max_childs, sigma=sigma))+0.5)
@@ -256,17 +276,19 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 for _ in range(reproduction_events):
                     total_reproductions += reproduction_events
                     child_behavior = agent.behavior
-                    
+
                     child = Agent(
                         agent_id=buffer + len(agents) + len(next_generation),
                         behavior=child_behavior,
                         resources=0.0,
                         decay=decay,
+                        repAge=agent.repAge,
+                        menoAge=agent.menoAge,
                         death_timer=random.uniform(1, float(config["BaseDeathTimer"])),
-                        age=0
+                        age=0,
                     )
                     next_generation.append(child)
-
+            
             still_alive = agent.alive()
             if agent.resources >= needed and still_alive:
                 agent.death_timer = random.uniform(agent.death_timer, base_death_timer)
@@ -280,6 +302,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                     
                 else:
                     total_deaths += 1
+                    print(f"Agent {agent.id} has died at age {agent.age} with resources {agent.resources:.2f} and death timer {agent.death_timer:.2f}.")
         proSociality = sum(agent.proSocial for agent in agents)
         history.append(
             {
@@ -293,7 +316,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
             }
         )
         agents = next_generation
-        #if verbose and tick % 10 == 0:
+        #if verbose and tick % 1 == 0 and len(agents)>0:
         #    print(f"Tick {tick}: Environment={environment}, Resources={env_resources:.2f}, Population={len(agents)}")
         #    print(f"total reproductions: {total_reproductions}, total deaths: {total_deaths}")
         

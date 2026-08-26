@@ -9,7 +9,7 @@ from simulation_slow import simulate
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
-S = 511
+S = 111
 TICKS_TO_REPORT = 22
 BEHAVIORS = ("share", "hoard")
 
@@ -100,6 +100,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
     prob_beh = float(config_template.get("probBeh", 0.0))
     decay = float(config_template.get("Decay", 0.0))
     tag = str(config_template.get("Tag", ""))
+    #print(f"Running batch with Chang={chang}, probBeh={prob_beh}, Decay={decay}, Tag={tag}.")
 
     summaries: List[Dict[str, object]] = []
     for run_id in range(S):
