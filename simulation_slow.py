@@ -11,7 +11,7 @@ import numpy as np
 
 CONFIG_PATH = Path(__file__).resolve().parent / "config.json"
 DATA_DIR = Path(__file__).resolve().parent / "data"
-buffer = 0  # Buffer for agent IDs to avoid collisions with initial agents
+buffer = 10  # Buffer for agent IDs to avoid collisions with initial agents
 
 class Agent:
     def __init__(self, agent_id: int, behavior: str, resources: float, decay: float, repAge: float, menoAge: float, death_timer: float, age: int):
@@ -136,14 +136,15 @@ def distribute_resources(total_resources: float, agents: List[Agent], needed: fl
         if agent.age < agent.repAge/2 : 
             agent.resources = 2
             used += needed  # Agent is too young, gets only the needed resources
-            #print(f"Agent {agent.id} (age: {agent.age:.2f}), "
+  
     remaining_resources = max(0.0, total_resources - used)
     
     weights = [random.random() for _ in range(n_agents-int(used/needed))]
     
     total_weight = sum(weights)
     for agent in agents:
-        if agent.age < agent.repAge/2 or agent.age > agent.menoAge*2: 
+        #distribute resources to the not too young, not too old agents
+        if agent.age > agent.repAge/2 and agent.age < agent.menoAge*2: 
             receive = (remaining_resources * weights.pop() / total_weight if weights else 0.0)
             agent.resources += receive - needed
     return agents
@@ -199,15 +200,18 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
 
     return random.choice(possible_targets)
     
-def should_reproduce(agent: Agent, max_storage:float, under1_DeathRate: float) -> bool:
+def should_reproduce(agent: Agent, res_needed:float, under1_DeathRate: float) -> bool:
 
     if agent.age < agent.repAge or agent.age > agent.menoAge:
         print(f"Agent {agent.id}, of age {agent.age} and beh {agent.behavior} is NOT in reproduction age. ")
         return False
     else:   
-        slope = agent.resources / max_storage
-        sample = slope*random.random()
-        print(f"Agent {agent.id}, age {agent.age}, beh. {agent.behavior}, res. {agent.resources:.2f},  slope {slope:.2f} is considering reproduction. Sample: {sample:.1f}")
+        skew= agent.resources/res_needed #/ max_storage
+        uniform_sample = random.random()
+        scaled_sample = uniform_sample * (1.0 + skew / 2.0)
+        sample = (2.0 * scaled_sample) / (1.0 + np.sqrt(1.0 + 2.0 * skew * scaled_sample))
+    
+        print(f"Agent {agent.id}, age {agent.age}, beh. {agent.behavior}, res. {agent.resources:.2f},  slope {skew:.2f} is considering reproduction. Sample: {sample:.1f}")
         return sample > under1_DeathRate
 
 
@@ -265,7 +269,7 @@ def simulate(config: Dict[str, object], verbose: bool = False) -> Dict[str, obje
                 # Hoarders recieve and keep their resources and do not share, ptroSociality captures that
                 agent.proSocial = (agent.proSocial - (agent.resources - needed)/needed)
         
-            reproduction = should_reproduce(agent, max_storage,under1_DeathRate)
+            reproduction = should_reproduce(agent, needed, under1_DeathRate)
             if  agent.resources > needed and reproduction:
                 
                 sigma = max(0.1, min(1.5, agent.resources / max(needed, 1e-6)))

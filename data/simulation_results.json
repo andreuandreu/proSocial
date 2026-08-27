@@ -30,44 +30,44 @@
       "resources_produced": 12.0,
       "population": 5,
       "behavior_counts": {
-        "share": 4,
-        "hoard": 1
+        "share": 2,
+        "hoard": 3
       },
-      "proSociality": 0.0,
+      "proSociality": -1.808965607658416,
       "agents": [
         {
           "id": 0,
           "behavior": "hoard",
           "resources": 1,
-          "death_timer": 2.316,
+          "death_timer": 2.855,
           "proSocial": 0.0
         },
         {
           "id": 1,
-          "behavior": "share",
-          "resources": 2.0,
-          "death_timer": 0.51,
-          "proSocial": 0.0
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.938,
+          "proSocial": -0.527
         },
         {
           "id": 2,
-          "behavior": "share",
+          "behavior": "hoard",
           "resources": 1,
-          "death_timer": 1.628,
-          "proSocial": 0.0
+          "death_timer": 2.842,
+          "proSocial": -1.282
         },
         {
           "id": 3,
           "behavior": "share",
-          "resources": 1,
-          "death_timer": 2.472,
+          "resources": 0.382,
+          "death_timer": 0.388,
           "proSocial": 0.0
         },
         {
           "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": 1.12,
+          "death_timer": 2.966,
           "proSocial": 0.0
         }
       ]
@@ -76,39 +76,46 @@
       "tick": 1,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 4,
+      "population": 5,
       "behavior_counts": {
-        "share": 3,
-        "hoard": 1
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 1.071929462576565,
+      "proSociality": -1.0918897347394063,
       "agents": [
         {
           "id": 0,
           "behavior": "hoard",
-          "resources": 2.144,
-          "death_timer": 1.316,
-          "proSocial": 0.5
+          "resources": 1,
+          "death_timer": 1.855,
+          "proSocial": 0.094
+        },
+        {
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.938,
+          "proSocial": -0.322
+        },
+        {
+          "id": 17,
+          "behavior": "hoard",
+          "resources": 2,
+          "death_timer": 0.192,
+          "proSocial": 0.0
         },
         {
           "id": 2,
-          "behavior": "share",
+          "behavior": "hoard",
           "resources": 1,
-          "death_timer": 2.965,
-          "proSocial": 0.572
-        },
-        {
-          "id": 3,
-          "behavior": "share",
-          "resources": 1,
-          "death_timer": 1.472,
-          "proSocial": 0.0
+          "death_timer": 1.842,
+          "proSocial": -0.864
         },
         {
           "id": 4,
           "behavior": "share",
-          "resources": 1.464,
-          "death_timer": 0.12,
+          "resources": 1,
+          "death_timer": 2.973,
           "proSocial": 0.0
         }
       ]
@@ -117,32 +124,39 @@
       "tick": 2,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 3,
+      "population": 4,
       "behavior_counts": {
-        "share": 2,
-        "hoard": 1
+        "share": 1,
+        "hoard": 3
       },
-      "proSociality": 1.2862897496664896,
+      "proSociality": -1.8561316005149078,
       "agents": [
         {
           "id": 0,
           "behavior": "hoard",
-          "resources": 1.83,
-          "death_timer": 1.334,
-          "proSocial": 0.368
+          "resources": 1,
+          "death_timer": 0.855,
+          "proSocial": 0.393
+        },
+        {
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.506,
+          "proSocial": -1.746
         },
         {
           "id": 2,
-          "behavior": "share",
+          "behavior": "hoard",
           "resources": 1,
-          "death_timer": 2.98,
-          "proSocial": 0.918
+          "death_timer": 0.842,
+          "proSocial": -0.503
         },
         {
-          "id": 3,
+          "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": 0.472,
+          "death_timer": 1.973,
           "proSocial": 0.0
         }
       ]
@@ -151,33 +165,40 @@
       "tick": 3,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 3,
+      "population": 4,
       "behavior_counts": {
-        "share": 2,
-        "hoard": 1
+        "share": 1,
+        "hoard": 3
       },
-      "proSociality": 1.7018707042017662,
+      "proSociality": -0.08184887478210412,
       "agents": [
         {
           "id": 0,
           "behavior": "hoard",
-          "resources": 1.97,
-          "death_timer": 0.334,
-          "proSocial": 0.409
+          "resources": 1.74,
+          "death_timer": -0.145,
+          "proSocial": 0.856
+        },
+        {
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.506,
+          "proSocial": -0.68
         },
         {
           "id": 2,
-          "behavior": "share",
+          "behavior": "hoard",
           "resources": 1,
-          "death_timer": 2.993,
-          "proSocial": 1.293
+          "death_timer": 2.539,
+          "proSocial": -0.638
         },
         {
-          "id": 3,
+          "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": -0.528,
-          "proSocial": 0.0
+          "death_timer": 2.928,
+          "proSocial": 0.38
         }
       ]
     },
@@ -185,26 +206,33 @@
       "tick": 4,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 2,
+      "population": 3,
       "behavior_counts": {
         "share": 1,
-        "hoard": 1
+        "hoard": 2
       },
-      "proSociality": 1.5127892100266216,
+      "proSociality": 0.43620818596084965,
       "agents": [
         {
-          "id": 0,
+          "id": 1,
           "behavior": "hoard",
-          "resources": 1.97,
-          "death_timer": -0.666,
-          "proSocial": 0.375
+          "resources": 2.12,
+          "death_timer": 0.506,
+          "proSocial": 0.05
         },
         {
           "id": 2,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.539,
+          "proSocial": -0.509
+        },
+        {
+          "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": 1.993,
-          "proSocial": 1.138
+          "death_timer": 2.93,
+          "proSocial": 0.895
         }
       ]
     },
@@ -212,19 +240,33 @@
       "tick": 5,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 1,
+      "population": 3,
       "behavior_counts": {
         "share": 1,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 1.0012139512948692,
+      "proSociality": -0.8951821496485661,
       "agents": [
         {
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.439,
+          "proSocial": -0.183
+        },
+        {
           "id": 2,
+          "behavior": "hoard",
+          "resources": 4.103,
+          "death_timer": 0.539,
+          "proSocial": -1.499
+        },
+        {
+          "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": 0.993,
-          "proSocial": 1.001
+          "death_timer": 2.955,
+          "proSocial": 0.787
         }
       ]
     },
@@ -232,19 +274,33 @@
       "tick": 6,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 1,
+      "population": 3,
       "behavior_counts": {
         "share": 1,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0.8810682771394849,
+      "proSociality": -1.1526135555164743,
       "agents": [
         {
-          "id": 2,
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.864,
+          "proSocial": -2.003
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 1.316,
+          "death_timer": 2.373,
+          "proSocial": 0.0
+        },
+        {
+          "id": 4,
           "behavior": "share",
           "resources": 1,
-          "death_timer": -0.007,
-          "proSocial": 0.881
+          "death_timer": 2.964,
+          "proSocial": 0.851
         }
       ]
     },
@@ -252,349 +308,875 @@
       "tick": 7,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 4,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 3
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -1.4183221083062205,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.551,
+          "proSocial": 0.0
+        },
+        {
+          "id": 1,
+          "behavior": "hoard",
+          "resources": 3.283,
+          "death_timer": 0.864,
+          "proSocial": -2.405
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 1.475,
+          "death_timer": 2.806,
+          "proSocial": 0.0
+        },
+        {
+          "id": 4,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.988,
+          "proSocial": 0.986
+        }
+      ]
     },
     {
       "tick": 8,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 3,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 1.4805083239223185,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 2.225,
+          "death_timer": 2.742,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.925,
+          "proSocial": 0.0
+        },
+        {
+          "id": 4,
+          "behavior": "share",
+          "resources": 5.775,
+          "death_timer": 1.988,
+          "proSocial": 1.481
+        }
+      ]
     },
     {
       "tick": 9,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.831,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.993,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 10,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.911,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.996,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 11,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.928,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "hoard",
+          "resources": 2,
+          "death_timer": 1.996,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 12,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.976,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 13,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.999,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 14,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -4.5,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.999,
+          "proSocial": -4.5
+        }
+      ]
     },
     {
       "tick": 15,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -8.46,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -8.46
+        }
+      ]
     },
     {
       "tick": 16,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -11.9448,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -11.945
+        }
+      ]
     },
     {
       "tick": 17,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -15.011423999999998,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -15.011
+        }
+      ]
     },
     {
       "tick": 18,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -17.710053119999998,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -17.71
+        }
+      ]
     },
     {
       "tick": 19,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -20.084846745599997,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -20.085
+        }
+      ]
     },
     {
       "tick": 20,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -22.174665136128,
+      "agents": [
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -22.175
+        }
+      ]
     },
     {
       "tick": 21,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 5,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -20.01370531979264,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.844,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.974,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.323,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.383,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -20.014
+        }
+      ]
     },
     {
       "tick": 22,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 5,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -18.11206068141752,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.929,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.991,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.865,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.753,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -18.112
+        }
+      ]
     },
     {
       "tick": 23,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 5,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -16.43861339964742,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.971,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.998,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.908,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.796,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -16.439
+        }
+      ]
     },
     {
       "tick": 24,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 5,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -14.96597979168973,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.995,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.943,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.896,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -14.966
+        }
+      ]
     },
     {
       "tick": 25,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 5,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 4
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -13.670062216686961,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.995,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.959,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.906,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 3.0,
+          "death_timer": 2.0,
+          "proSocial": -13.67
+        }
+      ]
     },
     {
       "tick": 26,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 4,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 3
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.972,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.979,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 27,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 4,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 3
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": 0.0,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": 0.0
+        },
+        {
+          "id": 13,
+          "behavior": "hoard",
+          "resources": 2,
+          "death_timer": 1.972,
+          "proSocial": 0.0
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.995,
+          "proSocial": 0.0
+        }
+      ]
     },
     {
       "tick": 28,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 3,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -0.277523111869209,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -1.287
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1.662,
+          "death_timer": 2.0,
+          "proSocial": 0.678
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": 1,
+          "death_timer": 2.998,
+          "proSocial": 0.331
+        }
+      ]
     },
     {
       "tick": 29,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 3,
       "behavior_counts": {
-        "share": 0,
-        "hoard": 0
+        "share": 1,
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -3.552636750458882,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 3.0,
+          "proSocial": -3.138
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.129,
+          "proSocial": -0.706
+        },
+        {
+          "id": 14,
+          "behavior": "share",
+          "resources": -0.955,
+          "death_timer": 2.998,
+          "proSocial": 0.291
+        }
+      ]
     },
     {
       "tick": 30,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -6.382652313067208,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.0,
+          "proSocial": -2.248
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.37,
+          "proSocial": -4.134
+        }
+      ]
     },
     {
       "tick": 31,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -8.616734035499142,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.0,
+          "proSocial": -1.713
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.433,
+          "proSocial": -6.903
+        }
+      ]
     },
     {
       "tick": 32,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -10.582725951239247,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.721,
+          "proSocial": -5.384
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 1.433,
+          "proSocial": -5.198
+        }
+      ]
     },
     {
       "tick": 33,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 2,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 2
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -12.312798837090536,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.519,
+          "proSocial": -4.845
+        },
+        {
+          "id": 12,
+          "behavior": "hoard",
+          "resources": 7.786,
+          "death_timer": 0.433,
+          "proSocial": -7.467
+        }
+      ]
     },
     {
       "tick": 34,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -8.76393347117542,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 1,
+          "death_timer": 2.833,
+          "proSocial": -8.764
+        }
+      ]
     },
     {
       "tick": 35,
       "environment": "neutral",
       "resources_produced": 12.0,
-      "population": 0,
+      "population": 1,
       "behavior_counts": {
         "share": 0,
-        "hoard": 0
+        "hoard": 1
       },
-      "proSociality": 0,
-      "agents": []
+      "proSociality": -12.212261454634369,
+      "agents": [
+        {
+          "id": 11,
+          "behavior": "hoard",
+          "resources": 11.0,
+          "death_timer": 1.833,
+          "proSocial": -12.212
+        }
+      ]
     },
     {
       "tick": 36,
