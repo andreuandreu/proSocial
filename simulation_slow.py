@@ -139,21 +139,26 @@ def distribute_resources(total_resources: float, agents: List[Agent], needed: fl
     for agent in agents:
         if agent.resources > max_storage:
             agent.resources = max_storage  # Cap resources to avoid excessive accumulation
-        if agent.age < agent.repAge/2 : 
+        if agent.age < agent.repAge/2 or agent.age > agent.menoAge*2: 
             agent.resources = 2
             used += needed  # Agent is too young, gets only the needed resources
   
     remaining_resources = max(0.0, total_resources - used)
-    
-    weights = [random.random() for _ in range(n_agents-int(used/needed))]
+    remaining_agents = n_agents-int(used/needed)
+    weights = [random.random() for _ in range(remaining_agents)]
     
     total_weight = sum(weights)
+    
     for agent in agents:
         #distribute resources to the not too young, not too old agents
         if agent.age > agent.repAge/2 and agent.age < agent.menoAge*2: 
             receive = (remaining_resources * weights.pop() / total_weight if weights else 0.0)
             agent.resources += receive - needed
-    return agents
+            
+
+    adult_overflow =remaining_resources/(2*max(1,total_weight))
+    #print (f'useeeeeed, {used/2}. reeeeemmmm, ', remaining_agents, f'{remaining_resources/max(1,remaining_agents):.2f}', f'{adult_overflow:.2f}')
+    return agents, adult_overflow 
 
 def advance_environment(current_environment: str, chang: float, reNeutral: float) -> str:
     if current_environment == "neutral":
@@ -173,7 +178,7 @@ def produce_environment_resources(environment: str, needed: float, N: int) -> fl
     return needed * N + 2
 
 
-def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optional[Agent]:
+def choose_target(agent: Agent, others: List[Agent], overflow: float) -> Optional[Agent]:
     '''
     Chooses a target agent for sharing based on the agent's memory proSOciality.'
     if there are no eligible targets, returns None.
@@ -188,10 +193,11 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
     #if not eligible:
     #    return None
 
+    
     worthy_recivers: List[Agent] = []
     #hoarders: List[Agent] = []
     for other in others:#elegible
-        if other.proSocial > share_th+0.001:#random.random()*
+        if other.proSocial > overflow+0.001:#random.random()*
             worthy_recivers.append(other)
             #print(f"Worthy {other.id} considered by Agent {agent.id}, proSoc {other.proSocial:.2f}")
 
@@ -202,10 +208,15 @@ def choose_target(agent: Agent, others: List[Agent], share_th: float) -> Optiona
         return random.choice(worthy_recivers)
     else:
         return random.choice(others)
+    
 
+    #return weighted_choice(others, [other.proSocial for other in others if other.id != agent.id])
     #possible_targets = [other for other in eligible if other not in hoarders]
     #if not possible_targets:
     # return None
+
+    # change so the sharing is towards all the other agents, more or less equally
+    # but when scarcity, share is only to non-harders, as they are remembered
 
     #return random.choice(possible_targets)
     
@@ -236,7 +247,7 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
     share_fraction = float(config.get("ShareFraction", 0.35))
     base_death_timer = float(config.get("BaseDeathTimer", 3.0))
     max_storage = float(config["MaxStorage"])
-    share_th = float(config.get("ShareThreshold", 0.5))
+    
     N = int(config["N"])
 
     history: List[Dict[str, object]] = []
@@ -249,7 +260,7 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
         environment = advance_environment(environment, chang, reNeutral)
         env_resources = produce_environment_resources(environment, needed, N)
 
-        agents = distribute_resources(env_resources, agents, needed, max_storage)
+        agents, adult_overflow = distribute_resources(env_resources, agents, needed, max_storage)
         
         for agent in agents:
             ##agent.proSocial *= agent.decay
@@ -265,8 +276,8 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
                 continue  # Skip agents with negative resources
 
             if agent.resources >= needed and agent.behavior == "share":
-                target = choose_target(agent, agents, share_th)
-                #target = random.choice(agents)
+                #target = choose_target(agent, agents, adult_overflow)
+                target = random.choice(agents)
                 if target is not None:
                     share_amount = min(agent.resources - needed, share_fraction * max(1.0, agent.resources / max(needed, 1e-6)))
                     if share_amount > 0.0 and agent.resources >= share_amount:
@@ -333,9 +344,9 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
             }
         )
         agents = next_generation
-        if tick % 100 == 0 and len(agents)>0:
-           print(f"Tick {tick}: Environment={environment}, Resources={env_resources:.2f}, Population={len(agents)}")
-           print(f"total reproductions: {total_reproductions}, total deaths: {total_deaths}")
+        #if tick % 100 == 0 and len(agents)>0:
+           #print(f"Tick {tick}: Environment={environment}, Resources={env_resources:.2f}, Population={len(agents)}")
+           #print(f"total reproductions: {total_reproductions}, total deaths: {total_deaths}")
         
 
     return {"config": config, "history": history}

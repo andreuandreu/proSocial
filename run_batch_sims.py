@@ -9,18 +9,18 @@ from simulation_slow import simulate
 
 BASE_DIR = Path(__file__).resolve().parent
 DATA_DIR = BASE_DIR / "data"
-S = 111
+S = 251
 TICKS_TO_REPORT = 22
 BEHAVIORS = ("share", "hoard")
 
 
-def make_param_label(chang: float, prob_beh: float, decay: float, tag: str) -> str:
+def make_param_label(chang: float, prob_beh: float, decay: float, shaFr: float, BaseDeathTimer:float, tag: str) -> str:
     """Return a stable file label for a parameter combination.
 
     The label mirrors the formatting used in the JSON artifact names so that
     parameter sweeps remain easy to inspect by hand.
     """
-    return f"Chang_{chang:.5f}_probBeh_{prob_beh:.3f}_Decay_{decay:.3f}"+ tag
+    return f"Chang_{chang:.5f}_probBeh_{prob_beh:.3f}_Decay_{decay:.3f}_shaFr_{shaFr:.1f}_FamRes_{BaseDeathTimer:.0f}_"+ tag
 
 
 def summarize_report_window(history: List[Dict[str, object]], window_size: int) -> Dict[str, object]:
@@ -99,6 +99,8 @@ def run_batch(config_template: Dict[str, object]) -> None:
     chang = float(config_template.get("Chang", 0.0))
     prob_beh = float(config_template.get("probBeh", 0.0))
     decay = float(config_template.get("Decay", 0.0))
+    shaFr = float(config_template.get("ShareFraction", 0.0))
+    baseDeathTimer = float(config_template.get("BaseDeathTimer", 0.0))
     tag = str(config_template.get("Tag", ""))
     #print(f"Running batch with Chang={chang}, probBeh={prob_beh}, Decay={decay}, Tag={tag}.")
 
@@ -107,7 +109,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
         config = dict(config_template)
         config["seed"] = int(config_template.get("seed", 7) + run_id)
 
-        result = simulate(config, verbose=False)
+        result = simulate(config)
         history = result.get("history", [])
         summary = summarize_report_window(history, TICKS_TO_REPORT)
         if run_id %10 == 1: print(f"run {run_id}, summary: {summary}.")
@@ -120,7 +122,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
         "extinct": round(sum(item["extinct"] for item in summaries), 3),
     }
 
-    output_path = DATA_DIR / f"{make_param_label(chang, prob_beh, decay, tag)}.json"
+    output_path = DATA_DIR / f"{make_param_label(chang, prob_beh, decay, shaFr, baseDeathTimer, tag)}.json"
     payload = {
         "S": S,
         "N": int(config_template.get("N", 1)),

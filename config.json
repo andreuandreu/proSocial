@@ -4,25 +4,24 @@
   "ticks": 255,
   "seed": 7,
   "Needed": 2.0,
-  "Decay": 0.08,
+  "Decay": 0.00008,
 
   "Under1DeathRate": 0.4,
   "ReproductiveAge": 16, 
   "varReproductiveAge": 2,
-  "MenopausalAge": 45,
+  "MenopausalAge": 42,
   "varMenopausalAge": 2,
-  "maxLife": 100,
+  "maxLife": 80,
 
   "probBeh": 0.005,
-  "ShareThreshold": 1.25,
-  "MaxStorage": 4.0,
+  "MaxStorage": 3.0,
   "ShareFraction": 0.5,
-  "BaseDeathTimer": 3,
+  "BaseDeathTimer": 2,
   "weightIniShare" : 1.0,
   "weightIniHoard": 1.0,
 
   "Chang": 0.00001,
   "ReNeutral": 0.05,
-  "Tag": "grow",
+  "Tag": "3store",
   "OutputDir": "data"
 }

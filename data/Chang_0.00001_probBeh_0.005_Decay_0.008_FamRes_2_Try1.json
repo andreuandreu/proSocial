@@ -1,0 +1,374 @@
+{
+  "S": 51,
+  "N": 55,
+  "ticks_reported": 22,
+  "parameters": {
+    "Chang": 1e-05,
+    "probBeh": 0.005,
+    "Decay": 0.008
+  },
+  "summary": {
+    "share": 827.727,
+    "hoard": 1050.636,
+    "extinct": 0.0
+  },
+  "runs": [
+    {
+      "status": "alive",
+      "share": 19.136364,
+      "hoard": 16.363636,
+      "extinct": 0.0,
+      "run_id": 0
+    },
+    {
+      "status": "alive",
+      "share": 0.0,
+      "hoard": 34.818182,
+      "extinct": 0.0,
+      "run_id": 1
+    },
+    {
+      "status": "alive",
+      "share": 34.090909,
+      "hoard": 3.681818,
+      "extinct": 0.0,
+      "run_id": 2
+    },
+    {
+      "status": "alive",
+      "share": 10.590909,
+      "hoard": 28.409091,
+      "extinct": 0.0,
+      "run_id": 3
+    },
+    {
+      "status": "alive",
+      "share": 0.454545,
+      "hoard": 32.954545,
+      "extinct": 0.0,
+      "run_id": 4
+    },
+    {
+      "status": "alive",
+      "share": 10.363636,
+      "hoard": 29.136364,
+      "extinct": 0.0,
+      "run_id": 5
+    },
+    {
+      "status": "alive",
+      "share": 0.318182,
+      "hoard": 34.590909,
+      "extinct": 0.0,
+      "run_id": 6
+    },
+    {
+      "status": "alive",
+      "share": 0.0,
+      "hoard": 37.136364,
+      "extinct": 0.0,
+      "run_id": 7
+    },
+    {
+      "status": "alive",
+      "share": 38.681818,
+      "hoard": 1.772727,
+      "extinct": 0.0,
+      "run_id": 8
+    },
+    {
+      "status": "alive",
+      "share": 11.545455,
+      "hoard": 28.136364,
+      "extinct": 0.0,
+      "run_id": 9
+    },
+    {
+      "status": "alive",
+      "share": 13.136364,
+      "hoard": 20.772727,
+      "extinct": 0.0,
+      "run_id": 10
+    },
+    {
+      "status": "alive",
+      "share": 33.909091,
+      "hoard": 0.5,
+      "extinct": 0.0,
+      "run_id": 11
+    },
+    {
+      "status": "alive",
+      "share": 1.0,
+      "hoard": 36.863636,
+      "extinct": 0.0,
+      "run_id": 12
+    },
+    {
+      "status": "alive",
+      "share": 26.136364,
+      "hoard": 10.227273,
+      "extinct": 0.0,
+      "run_id": 13
+    },
+    {
+      "status": "alive",
+      "share": 0.681818,
+      "hoard": 34.909091,
+      "extinct": 0.0,
+      "run_id": 14
+    },
+    {
+      "status": "alive",
+      "share": 19.818182,
+      "hoard": 18.181818,
+      "extinct": 0.0,
+      "run_id": 15
+    },
+    {
+      "status": "alive",
+      "share": 35.409091,
+      "hoard": 2.227273,
+      "extinct": 0.0,
+      "run_id": 16
+    },
+    {
+      "status": "alive",
+      "share": 29.727273,
+      "hoard": 8.818182,
+      "extinct": 0.0,
+      "run_id": 17
+    },
+    {
+      "status": "alive",
+      "share": 2.181818,
+      "hoard": 34.0,
+      "extinct": 0.0,
+      "run_id": 18
+    },
+    {
+      "status": "alive",
+      "share": 16.227273,
+      "hoard": 19.636364,
+      "extinct": 0.0,
+      "run_id": 19
+    },
+    {
+      "status": "alive",
+      "share": 7.590909,
+      "hoard": 25.590909,
+      "extinct": 0.0,
+      "run_id": 20
+    },
+    {
+      "status": "alive",
+      "share": 3.318182,
+      "hoard": 32.727273,
+      "extinct": 0.0,
+      "run_id": 21
+    },
+    {
+      "status": "alive",
+      "share": 2.454545,
+      "hoard": 31.954545,
+      "extinct": 0.0,
+      "run_id": 22
+    },
+    {
+      "status": "alive",
+      "share": 13.5,
+      "hoard": 23.772727,
+      "extinct": 0.0,
+      "run_id": 23
+    },
+    {
+      "status": "alive",
+      "share": 25.863636,
+      "hoard": 8.590909,
+      "extinct": 0.0,
+      "run_id": 24
+    },
+    {
+      "status": "alive",
+      "share": 4.136364,
+      "hoard": 34.545455,
+      "extinct": 0.0,
+      "run_id": 25
+    },
+    {
+      "status": "alive",
+      "share": 34.272727,
+      "hoard": 4.909091,
+      "extinct": 0.0,
+      "run_id": 26
+    },
+    {
+      "status": "alive",
+      "share": 9.5,
+      "hoard": 26.818182,
+      "extinct": 0.0,
+      "run_id": 27
+    },
+    {
+      "status": "alive",
+      "share": 36.363636,
+      "hoard": 2.818182,
+      "extinct": 0.0,
+      "run_id": 28
+    },
+    {
+      "status": "alive",
+      "share": 7.5,
+      "hoard": 29.0,
+      "extinct": 0.0,
+      "run_id": 29
+    },
+    {
+      "status": "alive",
+      "share": 34.227273,
+      "hoard": 3.5,
+      "extinct": 0.0,
+      "run_id": 30
+    },
+    {
+      "status": "alive",
+      "share": 4.227273,
+      "hoard": 34.363636,
+      "extinct": 0.0,
+      "run_id": 31
+    },
+    {
+      "status": "alive",
+      "share": 31.0,
+      "hoard": 6.636364,
+      "extinct": 0.0,
+      "run_id": 32
+    },
+    {
+      "status": "alive",
+      "share": 17.636364,
+      "hoard": 21.681818,
+      "extinct": 0.0,
+      "run_id": 33
+    },
+    {
+      "status": "alive",
+      "share": 6.454545,
+      "hoard": 30.090909,
+      "extinct": 0.0,
+      "run_id": 34
+    },
+    {
+      "status": "alive",
+      "share": 14.5,
+      "hoard": 20.181818,
+      "extinct": 0.0,
+      "run_id": 35
+    },
+    {
+      "status": "alive",
+      "share": 32.909091,
+      "hoard": 5.136364,
+      "extinct": 0.0,
+      "run_id": 36
+    },
+    {
+      "status": "alive",
+      "share": 37.909091,
+      "hoard": 0.045455,
+      "extinct": 0.0,
+      "run_id": 37
+    },
+    {
+      "status": "alive",
+      "share": 1.409091,
+      "hoard": 30.318182,
+      "extinct": 0.0,
+      "run_id": 38
+    },
+    {
+      "status": "alive",
+      "share": 0.0,
+      "hoard": 37.545455,
+      "extinct": 0.0,
+      "run_id": 39
+    },
+    {
+      "status": "alive",
+      "share": 2.272727,
+      "hoard": 31.5,
+      "extinct": 0.0,
+      "run_id": 40
+    },
+    {
+      "status": "alive",
+      "share": 30.636364,
+      "hoard": 10.0,
+      "extinct": 0.0,
+      "run_id": 41
+    },
+    {
+      "status": "alive",
+      "share": 0.5,
+      "hoard": 32.181818,
+      "extinct": 0.0,
+      "run_id": 42
+    },
+    {
+      "status": "alive",
+      "share": 32.545455,
+      "hoard": 7.045455,
+      "extinct": 0.0,
+      "run_id": 43
+    },
+    {
+      "status": "alive",
+      "share": 37.681818,
+      "hoard": 0.0,
+      "extinct": 0.0,
+      "run_id": 44
+    },
+    {
+      "status": "alive",
+      "share": 1.045455,
+      "hoard": 33.227273,
+      "extinct": 0.0,
+      "run_id": 45
+    },
+    {
+      "status": "alive",
+      "share": 20.363636,
+      "hoard": 16.727273,
+      "extinct": 0.0,
+      "run_id": 46
+    },
+    {
+      "status": "alive",
+      "share": 39.454545,
+      "hoard": 1.136364,
+      "extinct": 0.0,
+      "run_id": 47
+    },
+    {
+      "status": "alive",
+      "share": 0.0,
+      "hoard": 35.772727,
+      "extinct": 0.0,
+      "run_id": 48
+    },
+    {
+      "status": "alive",
+      "share": 25.681818,
+      "hoard": 12.863636,
+      "extinct": 0.0,
+      "run_id": 49
+    },
+    {
+      "status": "alive",
+      "share": 9.363636,
+      "hoard": 26.818182,
+      "extinct": 0.0,
+      "run_id": 50
+    }
+  ]
+}

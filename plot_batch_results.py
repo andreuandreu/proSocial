@@ -54,9 +54,9 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
         share_fraction = share / population if population > 0.0 else 0.0
         hoard_fraction = hoard / population if population > 0.0 else 0.0
 
-        if share_fraction > 0.90:
+        if share_fraction > 0.66:
             share_runs += 1
-        elif hoard_fraction > 0.90:
+        elif hoard_fraction > 0.66:
             hoard_runs += 1
         else:
             mix_runs += 1
@@ -80,7 +80,7 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
     ax.pie(
         values,
         labels=labels,
-        autopct="%1.1f%%",
+        autopct="%1.0f%%",
         startangle=90,
         radius=pie_radius,
         wedgeprops={"linewidth": 1.0, "edgecolor": "white"},
