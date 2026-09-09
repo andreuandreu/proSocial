@@ -20,7 +20,7 @@ def make_param_label(chang: float, prob_beh: float, decay: float, shaFr: float, 
     The label mirrors the formatting used in the JSON artifact names so that
     parameter sweeps remain easy to inspect by hand.
     """
-    return f"Chang_{chang:.5f}_probBeh_{prob_beh:.3f}_Decay_{decay:.3f}_shaFr_{shaFr:.1f}_FamRes_{BaseDeathTimer:.0f}_"+ tag
+    return f"{tag}_Chang_{chang:.5f}_probBeh_{prob_beh:.3f}_Decay_{decay:.3f}_shaFr_{shaFr:.1f}_FamRes_{BaseDeathTimer:.0f}"
 
 
 def summarize_report_window(history: List[Dict[str, object]], window_size: int) -> Dict[str, object]:

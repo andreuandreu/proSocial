@@ -131,9 +131,9 @@ def init_agents(config: Dict[str, object]) -> List[Agent]:
 def distribute_resources(total_resources: float, agents: List[Agent], needed: float, max_storage: float) -> List[Agent]:
     n_agents = len(agents)
     if n_agents <= 0:
-        return []
+        return [], 0.0
     if total_resources <= 0:
-        return [0.0 for _ in range(n_agents)]
+        return [0.0 for _ in range(n_agents)], 0.0
     
     used = 0.0
     for agent in agents:
@@ -170,12 +170,12 @@ def advance_environment(current_environment: str, chang: float, reNeutral: float
     return current_environment
 
 
-def produce_environment_resources(environment: str, needed: float, N: int) -> float:
+def produce_environment_resources(environment: str, needed: float, max_abu: float, max_scarce: float, N: int) -> float:
     if environment == "abundant":
-        return random.uniform(2.0 * needed * N, 10.0 * needed * N)
+        return random.uniform(1.1 * needed * N, max_abu * needed * N)
     if environment == "scarce":
-        return random.uniform(0.1 * needed * N, 0.5 * needed * N)
-    return needed * N + 2
+        return random.uniform(max_scarce * needed * N,  needed * N + needed)
+    return needed * N + needed
 
 
 def choose_target(agent: Agent, others: List[Agent], overflow: float) -> Optional[Agent]:
@@ -247,6 +247,8 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
     share_fraction = float(config.get("ShareFraction", 0.35))
     base_death_timer = float(config.get("BaseDeathTimer", 3.0))
     max_storage = float(config["MaxStorage"])
+    max_abu = float(config["MaxAbundant"])
+    max_scarce = float(config["MaxScarce"])
     
     N = int(config["N"])
 
@@ -258,12 +260,12 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
         if len(agents)>0 and verbose: 
             print("tick", tick, '\n')
         environment = advance_environment(environment, chang, reNeutral)
-        env_resources = produce_environment_resources(environment, needed, N)
+        env_resources = produce_environment_resources(environment, needed, max_abu, max_scarce, N)
 
         agents, adult_overflow = distribute_resources(env_resources, agents, needed, max_storage)
         
         for agent in agents:
-            ##agent.proSocial *= agent.decay
+            agent.proSocial *= agent.decay
             agent.maybe_switch_behavior(prob_beh)
             agent.age += 1
 
@@ -276,8 +278,8 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
                 continue  # Skip agents with negative resources
 
             if agent.resources >= needed and agent.behavior == "share":
-                #target = choose_target(agent, agents, adult_overflow)
-                target = random.choice(agents)
+                target = choose_target(agent, agents, adult_overflow)
+                #target = random.choice(agents)
                 if target is not None:
                     share_amount = min(agent.resources - needed, share_fraction * max(1.0, agent.resources / max(needed, 1e-6)))
                     if share_amount > 0.0 and agent.resources >= share_amount:
@@ -337,6 +339,7 @@ def simulate(config: Dict[str, object]) -> Dict[str, object]:
                 "tick": tick,
                 "environment": environment,
                 "resources_produced": round(env_resources, 3),
+                "adult_overflow": round(adult_overflow, 3),
                 "population": len(agents),
                 "behavior_counts": {behavior: sum(1 for agent in agents if agent.behavior == behavior) for behavior in ["share", "hoard"]},
                 "proSociality": proSociality,

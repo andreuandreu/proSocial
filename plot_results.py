@@ -32,6 +32,7 @@ def plot_results(results: dict) -> None:
     ticks = [entry["tick"] for entry in history]
     environments = [entry["environment"] for entry in history]
     resources = [entry["resources_produced"] for entry in history]
+    adult_overflow = [entry.get("adult_overflow", 0.0) for entry in history]
     behavior_counts = [entry.get("behavior_counts", {}) for entry in history]
     av_proSociality = [entry.get("proSociality", {}) for entry in history]
 
@@ -43,7 +44,7 @@ def plot_results(results: dict) -> None:
 
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
-    fig, axes = plt.subplots(2, 1, figsize=(10, 8), sharex=True)
+    fig, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=True)
 
     ax1 = axes[0]
     share_counts = movingaverage(share_counts, window_size)
@@ -54,21 +55,22 @@ def plot_results(results: dict) -> None:
     ax1.set_ylabel("Agent count")
     ax1.set_title("Behavior distribution over time")
     ax1.legend()
-    ax1.grid(alpha=0.3)
-
-
 
     ax2 = axes[1]
     ax2.plot(ticks, resources, color="tab:green", linewidth=1.8, label="resources produced")
     ax2.set_ylabel("Resources produced")
-    ax2.set_xlabel("Tick")
     ax2.set_title("Environment resources and regime")
-    ax2.grid(alpha=0.3)
 
     ax2_twin = ax2.twinx()
-    ax2_twin.plot(ticks, av_proSociality/(resources*(share_counts + hoard_counts)), label = "ProSoc", ls = ":")
-    ax2_twin.hlines(0, ticks[0], ticks[-1], color = 'k')
-    ax2_twin.set_ylabel("Group ProSociality\n ")
+    ax2_twin.plot(ticks, adult_overflow, label = "ProSoc", ls = ":")
+    ax2_twin.set_ylabel("Overflow")
+
+
+    axes[2].plot(ticks, av_proSociality/(resources*(share_counts + hoard_counts)),  color="tab:purple")#
+    axes[2].set_title("Group ProSociality\n ")
+    axes[2].hlines(0, ticks[0], ticks[-1], color = 'k')
+    axes[2].set_ylabel("Av ProSociality")
+    axes[2].set_xlabel("Tick")
 
     #ax2_twin = ax2.twinx()
     #ax2_twin.plot(ticks, env_series, color="tab:red", linewidth=1.2, label="environment")
