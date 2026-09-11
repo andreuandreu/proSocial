@@ -1,0 +1,1269 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="1139.5822"
+   height="1354.4303"
+   viewBox="0 0 1139.5822 1354.4303"
+   role="img"
+   aria-labelledby="title desc"
+   version="1.1"
+   id="svg382"
+   sodipodi:docname="simulation_slow_flow.svg"
+   inkscape:version="1.2.1 (9c6d41e, 2022-07-14)"
+   inkscape:export-filename="Fig_0_flow_v2.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <sodipodi:namedview
+     id="namedview384"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#505050"
+     showgrid="false"
+     inkscape:zoom="0.39351754"
+     inkscape:cx="609.88388"
+     inkscape:cy="711.53119"
+     inkscape:window-width="1309"
+     inkscape:window-height="800"
+     inkscape:window-x="0"
+     inkscape:window-y="30"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer1" />
+  <title
+     id="title">Flow diagram of the simulation_slow.py model</title>
+  <desc
+     id="desc">A yearly agent-based simulation flow showing environmental change, resource production and distribution, behavior change, prosocial memory, sharing, reproduction, death, extinction, and simulation termination.</desc>
+  <defs
+     id="defs140">
+    <marker
+       id="arrow"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 10 10"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134" />
+    </marker>
+    <filter
+       id="shadow"
+       x="-0.0091780908"
+       y="-0.0091780908"
+       width="1.0183562"
+       height="1.0183562">
+      <feDropShadow
+         dx="0"
+         dy="2"
+         stdDeviation="2"
+         flood-color="#20303a"
+         flood-opacity="0.16" />
+    </filter>
+    <style
+       id="style138">
+      .title { font: 700 30px Georgia, serif; fill: #20303a; }
+      .subtitle { font: 16px Georgia, serif; fill: #53636d; }
+      .label { font: 600 17px Georgia, serif; fill: #20303a; }
+      .small { font: 15px Georgia, serif; fill: #36454f; }
+      .tiny { font: 13px Georgia, serif; fill: #53636d; }
+      .action { fill: #e8f0f2; stroke: #486a78; stroke-width: 2; }
+      .environment { fill: #e9f1e5; stroke: #64815d; stroke-width: 2; }
+      .memory { fill: #f1e9d8; stroke: #92764a; stroke-width: 2; }
+      .life { fill: #f2e4e4; stroke: #956363; stroke-width: 2; }
+      .gate { fill: #f7f1df; stroke: #806b35; stroke-width: 2; }
+      .connector { fill: none; stroke: #36454f; stroke-width: 2.5; marker-end: url(#arrow); }
+      .branch { font: 700 14px Georgia, serif; fill: #53636d; }
+      .note { fill: #fbfaf6; stroke: #b4b0a5; stroke-width: 1.5; stroke-dasharray: 5 4; }
+    </style>
+    <marker
+       id="arrow-2"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 10 10"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-9" />
+    </marker>
+    <marker
+       id="arrow-1"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-2" />
+    </marker>
+    <marker
+       id="arrow-9"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-6" />
+    </marker>
+    <marker
+       id="arrow-24"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-4" />
+    </marker>
+    <marker
+       id="arrow-3"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-0" />
+    </marker>
+    <marker
+       id="arrow-24-6"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-4-2" />
+    </marker>
+    <marker
+       id="arrow-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 10 10"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-04" />
+    </marker>
+    <marker
+       markerWidth="0.52499998"
+       markerHeight="0.99999994"
+       refX="0"
+       refY="0"
+       orient="auto-start-reverse"
+       id="CapTriangle-9"
+       viewBox="0 0 0.525 1"
+       inkscape:stockid="pin"
+       style="overflow:visible"
+       preserveAspectRatio="xMidYMid"
+       inkscape:isstock="true"
+       inkscape:collect="always">
+      <path
+         id="path7813-4"
+         style="fill:context-stroke;stroke-linecap:butt"
+         d="M 0,-1 1,0 0,1 -0.05,0 Z"
+         sodipodi:nodetypes="sssssscsss"
+         transform="scale(0.5)" />
+    </marker>
+    <marker
+       id="arrow-8"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-3" />
+    </marker>
+    <marker
+       id="arrow-0"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-47" />
+    </marker>
+    <marker
+       id="arrow-5-3"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-04-3" />
+    </marker>
+    <marker
+       id="arrow-5-3-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-04-3-9" />
+    </marker>
+    <marker
+       id="arrow-6"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-41" />
+    </marker>
+    <marker
+       id="arrow-3-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-0-8" />
+    </marker>
+    <marker
+       id="arrow-3-5-6"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-0-8-8" />
+    </marker>
+    <marker
+       id="arrow-24-6-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-4-2-7" />
+    </marker>
+    <marker
+       id="arrow-7"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-03" />
+    </marker>
+    <marker
+       id="arrow-24-61"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-4-4" />
+    </marker>
+    <marker
+       id="arrow-24-61-5"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-4-4-0" />
+    </marker>
+    <marker
+       id="arrow-5-3-5-1"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-04-3-9-1" />
+    </marker>
+    <marker
+       id="arrow-89"
+       markerWidth="10"
+       markerHeight="10"
+       refX="8"
+       refY="5"
+       orient="auto"
+       markerUnits="strokeWidth"
+       viewBox="0 0 10 10"
+       preserveAspectRatio="xMidYMid">
+      <path
+         d="M 0,0 10,5 0,10 Z"
+         fill="#36454f"
+         id="path134-1" />
+    </marker>
+  </defs>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="background"
+     style="display:inline"
+     transform="translate(0.23055136,-209.2636)">
+    <rect
+       style="fill:#fdfdfd;stroke:#c60510;stroke-width:0.37927;stroke-linecap:round;stroke-linejoin:bevel;paint-order:markers fill stroke;stop-color:#000000"
+       id="rect862"
+       width="1139.2029"
+       height="1354.051"
+       x="-0.040916368"
+       y="209.45323"
+       inkscape:label="rect862" />
+    <rect
+       x="14.214241"
+       y="891.99091"
+       width="989.64642"
+       height="45"
+       rx="7.9999995"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="2.70754"
+       id="rect176-0"
+       ry="8"
+       style="display:inline;fill:#cbf1bc;fill-opacity:0.358108;stroke:none" />
+    <path
+       d="M 918.77163,949.49251 V 735.06769 h -12.56779 l -33.53915,0.17258 c 0,0 -2.06672,10.46875 -4.99437,13.71105 -2.92765,3.24229 -8.52091,3.47624 -10.54548,3.45161 -2.02457,-0.0246 -5.7813,0.17595 -8.81967,-2.58871 -3.03837,-2.76466 -6.04646,-14.74653 -6.04646,-14.74653 h -35.05192 -17.4487 -17.4487 -17.4487 -17.4487"
+       class="connector"
+       id="path308-7-0-5"
+       sodipodi:nodetypes="cccczzzcccccc"
+       style="display:inline;fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-5-3-5-1)"
+       transform="translate(-0.23055117,209.2636)" />
+    <polygon
+       points="1135,1125 1040,1170 945,1125 1040,1080 "
+       class="gate"
+       id="polygon346-8-3-1-3"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(0.7886168,0,0,0.43284642,-38.185776,546.25201)" />
+    <path
+       d="m 919.92238,1374.1305 -0.35011,-47.2251"
+       class="connector"
+       id="path308-7"
+       sodipodi:nodetypes="cc"
+       style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-5)" />
+    <rect
+       x="502.54785"
+       y="739.5686"
+       width="195.12518"
+       height="51.282722"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.28342"
+       id="rect176-8-6"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="438.92886"
+       y="830.41992"
+       width="320.28979"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.71953"
+       id="rect176-8-6-1"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="470.81326"
+       y="1167.584"
+       width="269.4321"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.57711"
+       id="rect176-8-6-1-5-8"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="834.89429"
+       y="1262.6207"
+       width="171.46637"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.25814"
+       id="rect176-8-6-1-5-8-3"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="786.25415"
+       y="1498.4816"
+       width="269.4321"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.57711"
+       id="rect176-8-6-1-5-8-2"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="16.642563"
+       y="404.82132"
+       width="987.21808"
+       height="45"
+       rx="7.9999995"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="2.70421"
+       id="rect176"
+       ry="8"
+       style="display:inline;fill:#cbf1bc;fill-opacity:0.358108;stroke:none" />
+    <rect
+       x="128.18658"
+       y="1168.0858"
+       width="292.06677"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.64202"
+       id="rect176-8-6-1-5-0"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <rect
+       x="166.09537"
+       y="832.88947"
+       width="195.12518"
+       height="51.282722"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.28342"
+       id="rect176-8-6-7"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <polygon
+       points="1135,1125 1040,1170 945,1125 1040,1080 "
+       class="gate"
+       id="polygon346-8"
+       style="fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.1654075,0,0,1.0356563,-612.53108,-665.75969)" />
+    <path
+       d="m 600,390.29008 -0.15771,55.94932"
+       class="connector"
+       id="path226"
+       sodipodi:nodetypes="cc" />
+    <polygon
+       points="1040,1170 945,1125 1040,1080 1135,1125 "
+       class="gate"
+       id="polygon346-8-06"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.1654075,0,0,1.0356563,-612.0238,-821.42779)" />
+    <polygon
+       points="945,1125 1040,1080 1135,1125 1040,1170 "
+       class="gate"
+       id="polygon346-8-3"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.1654075,0,0,1.0356563,-613.0238,-525.71787)" />
+    <polygon
+       points="1135,1125 1040,1170 945,1125 1040,1080 "
+       class="gate"
+       id="polygon346-8-3-1"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.1654075,0,0,1.1089477,-608.0238,-174.26803)" />
+    <polygon
+       points="1040,1170 945,1125 1040,1080 1135,1125 "
+       class="gate"
+       id="polygon346-8-3-1-9"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.2320289,0,0,1.43894,-675.9012,-201.58418)" />
+    <polygon
+       points="945,1125 1040,1080 1135,1125 1040,1170 "
+       class="gate"
+       id="polygon346-8-3-1-9-7-0"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.0296797,0,0,0.65933479,-152.32581,446.67454)" />
+    <rect
+       x="427.57098"
+       y="215.72208"
+       width="348.85803"
+       height="51.282722"
+       rx="7.9999995"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.71609"
+       id="rect176-8"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+  </g>
+  <!-- Start -->
+  <!-- Initialization -->
+  <text
+     x="600.23053"
+     y="22.736403"
+     text-anchor="middle"
+     class="label"
+     id="text156"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Initialize population</text>
+  <text
+     x="600.23053"
+     y="47.736404"
+     text-anchor="middle"
+     class="small"
+     id="text158"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">N agents, age, behavior, resources, memory</text>
+  <!-- Years gate -->
+  <text
+     x="600.23053"
+     y="136.7364"
+     text-anchor="middle"
+     class="label"
+     id="text164"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Years remaining?</text>
+  <text
+     x="706.23053"
+     y="151.7364"
+     class="branch"
+     id="text168"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">No</text>
+  <path
+     d="m 710.94426,134.42195 h 302.32054 l 0.4894,500.66732 46.3056,-0.39585"
+     class="connector"
+     id="path170"
+     sodipodi:nodetypes="cccc" />
+  <path
+     d="M 809.67832,1207.0216 808.95206,949.49251 915.01471,910.59388"
+     class="connector"
+     id="path170-1"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow)" />
+  <path
+     d="M 858.56645,828.09868 857.12484,295.00204 655.58741,157.72421"
+     class="connector"
+     id="path170-1-4"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-89)" />
+  <text
+     x="449.76764"
+     y="187.59477"
+     class="branch"
+     id="text172"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes: begin next year</text>
+  <!-- Environment section -->
+  <text
+     x="191.33116"
+     y="223.55772"
+     text-anchor="middle"
+     class="label"
+     id="text178"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">ENVIRONMENT AND RESOURCES</text>
+  <text
+     x="598.23053"
+     y="294.73642"
+     text-anchor="middle"
+     class="label"
+     id="text182"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Environment neutral?</text>
+  <text
+     x="484.23056"
+     y="309.73642"
+     class="branch"
+     id="text186"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <g
+     id="g6990"
+     transform="translate(25.729856,-416.58501)">
+    <polygon
+       points="945,1125 1040,1080 1135,1125 1040,1170 "
+       class="gate"
+       id="polygon346-8-0"
+       style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+       transform="matrix(1.1654075,0,0,1.0356563,-863.69519,-386.4824)" />
+    <text
+       x="350"
+       y="775"
+       text-anchor="middle"
+       class="label"
+       id="text190"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Change occurs?</text>
+    <text
+       x="350"
+       y="797"
+       text-anchor="middle"
+       class="small"
+       id="text192"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">probability Chang</text>
+  </g>
+  <text
+     x="267.12003"
+     y="380.40768"
+     class="branch"
+     id="text194"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">No</text>
+  <text
+     x="379.53674"
+     y="420.85385"
+     class="branch"
+     id="text196"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <text
+     x="264.23056"
+     y="643.73639"
+     text-anchor="middle"
+     class="label"
+     id="text200"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Remain neutral</text>
+  <text
+     x="264.23056"
+     y="666.73639"
+     text-anchor="middle"
+     class="small"
+     id="text202"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">No environmental transition</text>
+  <text
+     x="603.29022"
+     y="428.96957"
+     text-anchor="middle"
+     class="label"
+     id="text206"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Return to neutral?</text>
+  <path
+     d="m 1013.8202,979.55843 -0.066,-344.46916"
+     class="connector"
+     id="path308-7-0"
+     sodipodi:nodetypes="cc"
+     style="display:inline;fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#CapTriangle-9)" />
+  <text
+     x="600.30011"
+     y="446.71841"
+     text-anchor="middle"
+     class="small"
+     id="text208"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">probability ReNeutral</text>
+  <text
+     x="606.14752"
+     y="484.504"
+     class="branch"
+     id="text210"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <text
+     x="609.23053"
+     y="348.73642"
+     class="branch"
+     id="text212"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">No: retain state</text>
+  <text
+     x="599.23053"
+     y="548.73639"
+     text-anchor="middle"
+     class="label"
+     id="text216"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Set environment</text>
+  <text
+     x="599.23053"
+     y="571.73639"
+     text-anchor="middle"
+     class="small"
+     id="text218"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">abundant or scarce</text>
+  <text
+     x="600.23053"
+     y="639.73639"
+     text-anchor="middle"
+     class="label"
+     id="text222"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Produce and distribute resources</text>
+  <text
+     x="600.23053"
+     y="664.73639"
+     text-anchor="middle"
+     class="small"
+     id="text224"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">production depends on environment and N</text>
+  <!-- Environment connectors -->
+  <path
+     d="m 599.72327,336.69458 -0.49272,39.68931"
+     class="connector"
+     id="path226-9"
+     sodipodi:nodetypes="cc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-2)" />
+  <path
+     d="m 263.34475,362.04593 0.54376,261.57994"
+     class="connector"
+     id="path232"
+     sodipodi:nodetypes="cc"
+     style="stroke-miterlimit:1" />
+  <path
+     d="m 374.05846,408.65046 -1.12015,147.2959 129.84009,10e-6"
+     class="connector"
+     id="path238-5"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-1)"
+     sodipodi:nodetypes="ccc" />
+  <path
+     d="m 599.23055,476.7364 v 50"
+     class="connector"
+     id="path240" />
+  <path
+     d="m 361.4511,649.26722 77.70831,-0.07"
+     class="connector"
+     id="path242"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 493.51684,864.0345 -219.06632,-0.6126 v 79.9843"
+     class="connector"
+     id="path242-9"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-24)" />
+  <path
+     d="m 733.74721,760.62729 49.02556,-0.47452 v 36.38259"
+     class="connector"
+     id="path242-9-0"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-24-61)" />
+  <path
+     d="m 782.20625,843.41872 v 20.00322 l -63.26199,0.61259"
+     class="connector"
+     id="path242-9-0-8"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-24-61-5)" />
+  <path
+     d="m 605.63941,1272.712 v 43.9827 l 180.8453,0.5642"
+     class="connector"
+     id="path242-9-3-1"
+     sodipodi:nodetypes="ccc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-24-6-5)" />
+  <path
+     d="m 599.36971,582.00202 -0.13916,37.73438"
+     class="connector"
+     id="path244"
+     sodipodi:nodetypes="cc" />
+  <!-- Agent processing -->
+  <text
+     x="157.42165"
+     y="710.84149"
+     text-anchor="middle"
+     class="label"
+     id="text248"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">AGENT-LEVEL DYNAMICS</text>
+  <path
+     d="m 599.3043,677.23805 0.92625,50.49835"
+     class="connector"
+     id="path258"
+     sodipodi:nodetypes="cc" />
+  <text
+     x="604.23053"
+     y="859.73639"
+     text-anchor="middle"
+     class="label"
+     id="text262"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Behavior changes?</text>
+  <text
+     x="782.93048"
+     y="827.29443"
+     text-anchor="middle"
+     class="label"
+     id="text262-1"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif;fill:#20303a">Last agent?</text>
+  <text
+     x="604.23053"
+     y="881.73639"
+     text-anchor="middle"
+     class="small"
+     id="text264"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">probability probBeh</text>
+  <text
+     x="570.20807"
+     y="924.13531"
+     class="branch"
+     id="text266"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <text
+     x="485.91415"
+     y="886.69989"
+     class="branch"
+     id="text268"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">No</text>
+  <text
+     x="894.84869"
+     y="948.2738"
+     class="branch"
+     id="text268-2-3"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif;fill:#53636d">No</text>
+  <path
+     d="m 605.25801,1097.4983 v 45"
+     class="connector"
+     id="path270" />
+  <path
+     d="m 604.95816,914.7593 0.0272,35.4294"
+     class="connector"
+     id="path270-4"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-3)"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 918.08689,1050.262 -0.027,-35.4294"
+     class="connector"
+     id="path270-4-4"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-3-5)"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 921.21427,1290.9327 -0.027,-35.4294"
+     class="connector"
+     id="path270-4-4-7"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-3-5-6)"
+     sodipodi:nodetypes="cc" />
+  <text
+     x="274.23056"
+     y="982.73639"
+     text-anchor="middle"
+     class="label"
+     id="text274"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Switch behaviour</text>
+  <text
+     x="274.23056"
+     y="1005.7365"
+     text-anchor="middle"
+     class="small"
+     id="text276"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">share or hoard, weighted by current state</text>
+  <text
+     x="607.74225"
+     y="979.71991"
+     text-anchor="middle"
+     class="label"
+     id="text280"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Share or hoard</text>
+  <text
+     x="607.74225"
+     y="1002.7201"
+     text-anchor="middle"
+     class="small"
+     id="text282"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">share transfers; hoard retains resources</text>
+  <path
+     d="m 920.97152,1207.9597 0.22925,39.2583"
+     class="connector"
+     id="path288-7"
+     sodipodi:nodetypes="cc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#CapTriangle-9)" />
+  <!-- Birth and death -->
+  <text
+     x="606.67889"
+     y="1187.3602"
+     text-anchor="middle"
+     class="label"
+     id="text292"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif"><tspan
+       sodipodi:role="line"
+       id="tspan5158"
+       x="606.67889"
+       y="1187.3602">Reproduction</tspan><tspan
+       sodipodi:role="line"
+       x="606.67889"
+       y="1208.6102"
+       id="tspan5556">conditions</tspan><tspan
+       sodipodi:role="line"
+       id="tspan5160"
+       x="606.67889"
+       y="1229.8602">met?</tspan></text>
+  <text
+     x="606.67889"
+     y="1247.3601"
+     text-anchor="middle"
+     class="small"
+     id="text294"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif"><tspan
+       sodipodi:role="line"
+       id="tspan12941"
+       x="606.67889"
+       y="1247.3601">resources,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan12943"
+       x="606.67889"
+       y="1266.1101">age</tspan></text>
+  <text
+     x="612.80725"
+     y="1279.3459"
+     class="branch"
+     id="text296"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <text
+     x="714.51611"
+     y="1200.9099"
+     class="branch"
+     id="text298"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">No</text>
+  <path
+     d="m 605.19104,1007.0034 0.13219,40.5803"
+     class="connector"
+     id="path300"
+     sodipodi:nodetypes="cc" />
+  <text
+     x="919.05548"
+     y="1314.4385"
+     text-anchor="middle"
+     class="label"
+     id="text304"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Birth</text>
+  <text
+     x="919.6413"
+     y="1334.5167"
+     text-anchor="middle"
+     class="small"
+     id="text306"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif"><tspan
+       sodipodi:role="line"
+       id="tspan5200"
+       x="919.6413"
+       y="1334.5167">child inherits parent behaviour</tspan></text>
+  <path
+     d="m 420.48391,986.863 50.5599,-0.5017"
+     class="connector"
+     id="path308"
+     sodipodi:nodetypes="cc" />
+  <path
+     d="m 720.74662,1207.7376 83.80999,-0.716"
+     class="connector"
+     id="path308-9"
+     sodipodi:nodetypes="cc"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-7)" />
+  <text
+     x="919.62335"
+     y="1071.8231"
+     text-anchor="middle"
+     class="label"
+     id="text326"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Death</text>
+  <text
+     x="919.62335"
+     y="1098.8231"
+     text-anchor="middle"
+     class="small"
+     id="text328"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif">remove from next year</text>
+  <!-- End and loop -->
+  <circle
+     cx="1090.0598"
+     cy="634.69342"
+     r="24"
+     fill="#fbfaf6"
+     stroke="#20303a"
+     stroke-width="3"
+     id="circle332" />
+  <circle
+     cx="1090.0598"
+     cy="634.69342"
+     r="7"
+     fill="#20303a"
+     id="circle334" />
+  <!-- Extinction callout; placed beside the end path to keep the main flow legible -->
+  <text
+     x="922.21759"
+     y="984.98053"
+     text-anchor="middle"
+     class="label"
+     id="text348"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Population = 0?</text>
+  <text
+     x="914.77985"
+     y="980.64996"
+     text-anchor="middle"
+     class="small"
+     id="text350"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif" />
+  <polygon
+     points="945,1125 1040,1080 1135,1125 1040,1170 "
+     class="gate"
+     id="polygon346-8-3-1-9-7"
+     style="display:inline;fill:#ffe096;fill-opacity:1;stroke:none;stroke-width:1.99979;stroke-dasharray:none"
+     transform="matrix(1.154557,0,0,0.98957737,-281.49992,93.747041)" />
+  <text
+     x="925.98309"
+     y="1163.1985"
+     class="branch"
+     id="text268-2"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif;fill:#53636d">No</text>
+  <text
+     x="919.18475"
+     y="1201.2716"
+     text-anchor="middle"
+     class="label"
+     id="text316"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Agent survives?</text>
+  <text
+     x="919.18475"
+     y="1221.2716"
+     text-anchor="middle"
+     class="small"
+     id="text318"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif"><tspan
+       sodipodi:role="line"
+       id="tspan5224"
+       x="919.18475"
+       y="1221.2716">age, famine counter,</tspan><tspan
+       sodipodi:role="line"
+       id="tspan5226"
+       x="919.18475"
+       y="1240.0216">resources</tspan></text>
+  <text
+     x="813.97113"
+     y="1194.1222"
+     class="branch"
+     id="text354"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif">Yes</text>
+  <text
+     x="985.74847"
+     y="965.26007"
+     class="branch"
+     id="text354-5"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif;fill:#53636d">Yes</text>
+  <text
+     x="827.24445"
+     y="813.73053"
+     class="branch"
+     id="text354-5-0"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif;fill:#53636d">Yes</text>
+  <text
+     x="758.21979"
+     y="850.38654"
+     class="branch"
+     id="text354-5-0-4"
+     style="font-style:normal;font-variant:normal;font-weight:700;font-stretch:normal;font-size:14px;line-height:normal;font-family:Georgia, serif;fill:#53636d">No</text>
+  <!-- Legend -->
+  <rect
+     x="959.81738"
+     y="736.94061"
+     width="109.28798"
+     height="58.476936"
+     rx="7.9999995"
+     class="life"
+     id="rect356"
+     ry="8" />
+  <text
+     x="1015.2068"
+     y="770.49542"
+     text-anchor="middle"
+     class="label"
+     id="text358"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif">Extinction</text>
+  <metadata
+     id="metadata509">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:title>Flow diagram of the simulation_slow.py model</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="texts"
+     transform="translate(0.23055136,-209.2636)">
+    <rect
+       x="470.81326"
+       y="1263.8473"
+       width="269.4321"
+       height="56.081726"
+       rx="8"
+       fill="#dce8d7"
+       stroke="#64815d"
+       stroke-width="1.57711"
+       id="rect176-8-6-1-5"
+       ry="8"
+       style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+    <text
+       x="625.65076"
+       y="1265.0293"
+       text-anchor="middle"
+       class="small"
+       id="text256"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif;stroke-width:0.9672"
+       transform="scale(0.96720021,1.0339121)">proSocial = proSocial x Decay</text>
+    <text
+       x="625.65082"
+       y="1242.7837"
+       text-anchor="middle"
+       class="label"
+       id="text254"
+       style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif;stroke-width:0.9672"
+       transform="scale(0.96720021,1.0339121)">Update prosocial memory</text>
+    <g
+       id="g30173"
+       transform="translate(6,-34)">
+      <rect
+         x="18.562599"
+         y="256.34167"
+         width="267.76505"
+         height="134.42502"
+         rx="7.999999"
+         class="note"
+         id="rect366"
+         ry="8.000001" />
+      <rect
+         x="41.96946"
+         y="272.98621"
+         width="48.871857"
+         height="27.210871"
+         class="action"
+         id="rect370"
+         style="fill:#d1ecfa;fill-opacity:1" />
+      <polygon
+         points="70,181 91,169 112,181 91,193 "
+         class="gate"
+         id="polygon374"
+         transform="matrix(1.1636156,0,0,1.1337863,-39.483631,125.86156)"
+         style="fill:#ffe096;fill-opacity:1" />
+      <text
+         x="104.60125"
+         y="339.1207"
+         class="small"
+         id="text376"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif;stroke-width:1.1486"
+         transform="scale(1.0130693,0.9870993)">yes/no decision</text>
+      <text
+         x="104.60125"
+         y="297.22882"
+         class="small"
+         id="text372"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif;stroke-width:1.1486"
+         transform="scale(1.0130693,0.98709928)">action / process</text>
+      <text
+         x="104.60125"
+         y="377.6311"
+         class="small"
+         id="text380"
+         style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif;stroke-width:1.1486"
+         transform="scale(1.0130693,0.98709928)">simulation endpoint</text>
+      <g
+         id="g19367"
+         transform="matrix(0.64020317,0,0,0.58992111,5.0739952,149.55519)">
+        <circle
+           cx="95.296272"
+           cy="373.42844"
+           r="24"
+           fill="#fbfaf6"
+           stroke="#20303a"
+           stroke-width="3"
+           id="circle332-9" />
+        <circle
+           cx="95.296272"
+           cy="373.42844"
+           r="7"
+           fill="#20303a"
+           id="circle334-3" />
+      </g>
+    </g>
+    <path
+       d="m 600,268 v 29.08101"
+       class="connector"
+       id="path226-1"
+       sodipodi:nodetypes="cc"
+       style="display:inline;fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-6)" />
+  </g>
+  <path
+     d="m 489.00956,290.09005 h -114.9511 v 25.35134"
+     class="connector"
+     id="path238"
+     style="fill:none;stroke:#36454f;stroke-width:2.5;marker-end:url(#arrow-9)"
+     sodipodi:nodetypes="ccc" />
+  <rect
+     x="467.97989"
+     y="735.06769"
+     width="269.4321"
+     height="56.081726"
+     rx="8"
+     fill="#dce8d7"
+     stroke="#64815d"
+     stroke-width="1.57711"
+     id="rect176-8-6-1-5-8-9"
+     ry="8"
+     style="display:inline;fill:#d1ecfa;fill-opacity:1;stroke:none" />
+  <text
+     x="604.67834"
+     y="756.46722"
+     text-anchor="middle"
+     class="label"
+     id="text280-7"
+     style="font-style:normal;font-variant:normal;font-weight:600;font-stretch:normal;font-size:17px;line-height:normal;font-family:Georgia, serif;fill:#20303a">Chose agent</text>
+  <text
+     x="604.67834"
+     y="779.46741"
+     text-anchor="middle"
+     class="small"
+     id="text282-3"
+     style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:15px;line-height:normal;font-family:Georgia, serif;fill:#36454f">check age, behaviour, famine counters</text>
+</svg>

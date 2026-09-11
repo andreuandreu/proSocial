@@ -1,0 +1,259 @@
+{
+  "parameters": {
+    "row": "Chang",
+    "column": "Decay"
+  },
+  "rows": [
+    1e-05,
+    0.01,
+    0.1,
+    0.2,
+    0.3
+  ],
+  "columns": [
+    0.001,
+    0.5,
+    0.85,
+    0.875,
+    0.95
+  ],
+  "matrix": {
+    "Chang=1e-05": {
+      "Decay=0.001": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "Decay=0.5": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "Decay=0.85": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "Decay=0.875": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "Decay=0.95": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json"
+    },
+    "Chang=0.01": {
+      "Decay=0.001": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "Decay=0.5": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "Decay=0.85": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "Decay=0.875": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "Decay=0.95": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json"
+    },
+    "Chang=0.1": {
+      "Decay=0.001": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "Decay=0.5": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "Decay=0.85": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "Decay=0.875": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "Decay=0.95": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json"
+    },
+    "Chang=0.2": {
+      "Decay=0.001": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "Decay=0.5": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "Decay=0.85": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "Decay=0.875": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "Decay=0.95": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json"
+    },
+    "Chang=0.3": {
+      "Decay=0.001": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "Decay=0.5": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "Decay=0.85": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "Decay=0.875": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "Decay=0.95": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json"
+    }
+  },
+  "batches": [
+    {
+      "Chang": 1e-05,
+      "Decay": 0.001,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 1e-05,
+      "Decay": 0.5,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 1e-05,
+      "Decay": 0.85,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 1e-05,
+      "Decay": 0.875,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 1e-05,
+      "Decay": 0.95,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.01,
+      "Decay": 0.001,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.01,
+      "Decay": 0.5,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.01,
+      "Decay": 0.85,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.01,
+      "Decay": 0.875,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.01,
+      "Decay": 0.95,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.1,
+      "Decay": 0.001,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.1,
+      "Decay": 0.5,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.1,
+      "Decay": 0.85,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.1,
+      "Decay": 0.875,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.1,
+      "Decay": 0.95,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.2,
+      "Decay": 0.001,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.2,
+      "Decay": 0.5,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.2,
+      "Decay": 0.85,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.2,
+      "Decay": 0.875,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.2,
+      "Decay": 0.95,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.3,
+      "Decay": 0.001,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.001_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.3,
+      "Decay": 0.5,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.500_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.3,
+      "Decay": 0.85,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.850_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.3,
+      "Decay": 0.875,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.875_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    },
+    {
+      "Chang": 0.3,
+      "Decay": 0.95,
+      "status": "skipped_existing",
+      "batch_file": "data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.950_shaFr_0.5_FamRes_2.json",
+      "S": 251,
+      "N": 55
+    }
+  ]
+}

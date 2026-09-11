@@ -74,7 +74,7 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
     if extinct_fraction <= 0.0:
         center_radius = 0.10
     else:
-        center_radius = math.sqrt(extinct_fraction)
+        center_radius = math.sqrt(extinct_fraction)*0.1
 
     fig, ax = plt.subplots(figsize=(7, 7))
     ax.pie(
@@ -99,6 +99,8 @@ def plot_batch_result(result: Dict[str, Any], output_path: Path) -> None:
     else:
         circle = plt.Circle((0, 0), 0.10, color="white", edgecolor="black", linewidth=1.2)
         ax.add_patch(circle)
+        if extinct_fraction > 0.04:
+            ax.text(0.5, 0.5, f"{extinct_fraction:.0%}", transform=ax.transAxes, ha="center", va="center", color = "white", fontsize=12)
 
     output_path.parent.mkdir(parents=True, exist_ok=True)
     fig.savefig(output_path, dpi=200, bbox_inches="tight")

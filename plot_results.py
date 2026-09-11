@@ -54,7 +54,7 @@ def plot_results(results: dict) -> None:
    
     ax1.set_ylabel("Agent count")
     ax1.set_title("Behavior distribution over time")
-    ax1.legend()
+    ax1.legend(frameon=False)
 
     ax2 = axes[1]
     ax2.plot(ticks, resources, color="tab:green", linewidth=1.8, label="resources produced")
@@ -70,7 +70,7 @@ def plot_results(results: dict) -> None:
     axes[2].set_title("Group ProSociality\n ")
     axes[2].hlines(0, ticks[0], ticks[-1], color = 'k')
     axes[2].set_ylabel("Av ProSociality")
-    axes[2].set_xlabel("Tick")
+    axes[2].set_xlabel("Year")
 
     #ax2_twin = ax2.twinx()
     #ax2_twin.plot(ticks, env_series, color="tab:red", linewidth=1.2, label="environment")
@@ -82,7 +82,7 @@ def plot_results(results: dict) -> None:
     fig.tight_layout()
     fig.savefig(OUTPUT_DIR / "simulation_summary.png", dpi=200)
     
-    #plt.show()
+    plt.show()
     plt.close(fig)
 
     print(f"Saved plots to {OUTPUT_DIR / 'simulation_summary.png'}")

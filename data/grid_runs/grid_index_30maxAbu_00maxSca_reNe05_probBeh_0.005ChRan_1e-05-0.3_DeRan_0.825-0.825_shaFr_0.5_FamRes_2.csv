@@ -1,0 +1,7 @@
+Chang,Decay,status,batch_file,S,N
+1e-05,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.00001_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.01,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.01000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.05,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.05000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.1,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.10000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.2,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.20000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.3,0.825,completed,data/30maxAbu_00maxSca_reNe05_Chang_0.30000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55

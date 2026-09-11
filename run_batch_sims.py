@@ -112,7 +112,7 @@ def run_batch(config_template: Dict[str, object]) -> None:
         result = simulate(config)
         history = result.get("history", [])
         summary = summarize_report_window(history, TICKS_TO_REPORT)
-        if run_id %10 == 1: print(f"run {run_id}, summary: {summary}.")
+        #if run_id %10 == 1: print(f"run {run_id}, summary: {summary}.")
         summary["run_id"] = run_id
         summaries.append(summary)
 

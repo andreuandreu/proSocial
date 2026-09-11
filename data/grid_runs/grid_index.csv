@@ -1,0 +1,10 @@
+Chang,Decay,status,batch_file,S,N
+0.1,0.825,skipped_existing,data/20maxAbu_05maxSca_Chang_0.10000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.1,0.9,skipped_existing,data/20maxAbu_05maxSca_Chang_0.10000_probBeh_0.005_Decay_0.900_shaFr_0.5_FamRes_2.json,251,55
+0.1,0.985,skipped_existing,data/20maxAbu_05maxSca_Chang_0.10000_probBeh_0.005_Decay_0.985_shaFr_0.5_FamRes_2.json,251,55
+0.2,0.825,skipped_existing,data/20maxAbu_05maxSca_Chang_0.20000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.2,0.9,skipped_existing,data/20maxAbu_05maxSca_Chang_0.20000_probBeh_0.005_Decay_0.900_shaFr_0.5_FamRes_2.json,251,55
+0.2,0.985,skipped_existing,data/20maxAbu_05maxSca_Chang_0.20000_probBeh_0.005_Decay_0.985_shaFr_0.5_FamRes_2.json,251,55
+0.4,0.825,skipped_existing,data/20maxAbu_05maxSca_Chang_0.40000_probBeh_0.005_Decay_0.825_shaFr_0.5_FamRes_2.json,251,55
+0.4,0.9,skipped_existing,data/20maxAbu_05maxSca_Chang_0.40000_probBeh_0.005_Decay_0.900_shaFr_0.5_FamRes_2.json,251,55
+0.4,0.985,skipped_existing,data/20maxAbu_05maxSca_Chang_0.40000_probBeh_0.005_Decay_0.985_shaFr_0.5_FamRes_2.json,251,55

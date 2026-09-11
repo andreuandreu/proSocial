@@ -4,7 +4,7 @@
   "ticks": 255,
   "seed": 7,
   "Needed": 2.0,
-  "Decay": 0.985,
+  "Decay": 0.001,
 
   "Under1DeathRate": 0.4,
   "ReproductiveAge": 16, 
@@ -20,10 +20,10 @@
   "weightIniShare" : 1.0,
   "weightIniHoard": 1.0,
 
-  "Chang": 0.1,
+  "Chang": 0.00001,
   "ReNeutral": 0.5,
   "MaxAbundant": 2.0,
-  "MaxScarce": 0.5,
-  "Tag": "20maxAbu_05maxSca",
+  "MaxScarce": 0.0,
+  "Tag": "30maxAbu_00maxSca_reNe05",
   "OutputDir": "data"
 }
